@@ -1,0 +1,89 @@
+/* TOPBAR */
+.aw-topbar {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	min-height: 50px;
+	z-index: 9999;
+	
+	background-color: #1e94d2;
+}
+
+.aw-topbar > img {
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+/* SIDEBAR */
+.aw-sidebar {
+	position: fixed;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	width: 210px;
+	margin-left: -211px;
+	z-index: 9998;
+	transition: margin-left 0.5s;
+	overflow-y: auto;
+	
+	background-color: #f6f6f6;
+	border-right: 1px solid #eaeaea;
+}
+
+.aw-sidebar.is-toggled {
+	margin-left: 0px;
+}
+
+@media (min-width: 960px) {
+	.aw-sidebar {
+		margin-left: 0px;
+	}
+	
+	.aw-sidebar.is-toggled {
+		margin-left: -211px;
+	}
+}
+
+/* CONTENT */
+.aw-content {
+	padding: 0 15px;
+	margin-top: 50px;
+	transition: margin-left 0.5s;
+}
+
+@media (min-width: 960px) {
+	.aw-content {
+		margin-left: 210px;
+	}
+	
+	.aw-content.is-toggled {
+		margin-left: 0;
+	}
+	
+}
+
+#login-dialog {
+	width: 1000px;
+	margin: auto;
+	margin-top: 200px;
+}
+
+.grid-login {
+	background-color: #f6f6f6;
+	border-radius: 8px;
+	margin-top: 8px;
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	position: relative;
+}
+
+body {
+	background:#ffffff;
+
+}
+
+/* #DCDDDF url(http://cssdeck.com/uploads/media/items/7/7AF2Qzt.png); */
+
+

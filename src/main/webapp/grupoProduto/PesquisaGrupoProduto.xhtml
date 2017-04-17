@@ -1,0 +1,106 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Grupo Produtos</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+		<br/> 
+			<h1>Pesquisa de Grupo Produtos</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar"  style="background: #407EE6; color: #feffff"
+						action="#{pesquisaGrupoProdutoBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/grupoProduto/CadastroGrupoProduto" icon="ui-icon-document" 
+					 style="background: #00A934; color: white"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" layout="grid"
+	    			columnClasses="ui-grid-col-1, ui-grid-col-11" styleClass="panelgrid-noborder">
+	    		<p:outputLabel value="Nome"/>
+	    		<p:inputText value="#{pesquisaGrupoProdutoBean.filtro.nomeGrupo}" />
+	    		
+	    	</p:panelGrid>
+
+
+			<p:dataTable id="grupoTable" value="#{pesquisaGrupoProdutoBean.grupoProdutos}"
+				var="grupo" style="margin-top: 20px"
+				emptyMessage="Nenhuma grupo produto encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selectionMode="single"
+				selection="#{pesquisaGrupoProdutoBean.grupoProdutoSelecionado}"
+				rowKey="#{grupo.codigo}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{grupo.codigo}" />
+				</p:column>
+				<p:column headerText="Grupo">
+					<h:outputText value="#{grupo.nome}" />
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroGrupoProduto" icon="ui-icon-pencil"
+						value="Editar" title="Editar" style="background: #00A934; color: #feffff">
+						<f:param name="grupo" value="#{grupo.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaGrupoProdutoBean.excluir}"
+						update=":frmPesquisa:grupoTable" style="background: #ff1828; color: #feffff">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover o Grupo de Produto #{grupo.nome}?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-search" update="grupoTable"
+								oncomplete="PF('info').show()" value="Dados"
+								style="background:   #e88c30; color: #feffff">
+								<f:setPropertyActionListener value="#{grupo}"
+									target="#{cadastroGrupoProdutoBean.grupoProduto}" />
+								<p:dialog header="Dados do Grupo Produto"  resizable="false" modal="true"
+									widgetVar="info" width="350px" height="300px" 
+									selectionMode="single">
+
+									<p:outputPanel id="tabela" layout="grid" 
+										styleClass="panelgrid-noborder">
+										<p:panelGrid columns="2"  
+											rendered="#{not empty cadastroGrupoProdutoBean.grupoProduto}"
+											columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+											styleClass="panelgrid-noborder"  style="background:  #e88c30;">
+											<p:outputLabel value="Código:" style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroGrupoProdutoBean.grupoProduto.codigo}" />
+											<p:outputLabel value="Grupo:"  style="font-weight: bold"/>
+												<h:outputText value="#{cadastroGrupoProdutoBean.grupoProduto.nome}" />
+											<p:outputLabel value="Ativo:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroGrupoProdutoBean.grupoProduto.ativo}" />
+										</p:panelGrid>
+									<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+								<p:toolbarGroup align="center">
+									<p:button value="Sair"
+										style="background: #ff1828 ; color: #feffff" outcome="/cargo/PesquisaCargo"/>
+								</p:toolbarGroup>
+								</p:dialog>
+							</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+		
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

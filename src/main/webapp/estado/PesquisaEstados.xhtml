@@ -1,0 +1,118 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Estados</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+		<br/> 
+			<h1>Pesquisa de Estados</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar" style="background: #407EE6; color: #feffff"
+						action="#{pesquisaEstadosBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/estado/CadastroEstado.xhtml" icon="ui-icon-document"  
+					style="background: #00A934; color: white"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" layout="grid"
+	    			columnClasses="ui-grid-col-1, ui-grid-col-11" styleClass="panelgrid-noborder">
+	    		<p:outputLabel value="Estado"/>
+	    		<p:inputText value="#{pesquisaEstadosBean.filtro.nomeEstado}" />
+	    		
+	    		<p:outputLabel value="Sigla" />
+	    		<p:inputText value="#{pesquisaEstadosBean.filtro.nomeSigla}" />
+	    	</p:panelGrid>
+
+
+
+
+			<p:dataTable id="estadoTable" value="#{pesquisaEstadosBean.estados}"
+				var="estado" style="margin-top: 20px"
+				emptyMessage="Nenhum estado encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selectionMode="single"
+				selection="#{pesquisaEstadosBean.estadoSelecionado}"
+				rowKey="#{estado.nome}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{estado.codigo}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText value="#{estado.nome}" />
+				</p:column>
+				<p:column headerText="Sigla">
+					<h:outputText value="#{estado.sigla}" />
+				</p:column>
+				<p:column headerText="País">
+					<h:outputText value="#{estado.pais}" />
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroEstado" icon="ui-icon-pencil"
+						value="Editar" title="Editar" style="background: #00A934; color: #feffff">
+						<f:param name="estado" value="#{estado.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaEstadosBean.excluir}"
+						update=":frmPesquisa:estadoTable" style="background: #ff1828; color: #feffff">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover o Estado #{estado.nome}?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					
+						<p:commandButton icon="ui-icon-search" update="estadoTable"
+								oncomplete="PF('info').show()" value="Dados"
+								style="background:   #e88c30; color: #feffff">
+								<f:setPropertyActionListener value="#{estado}"
+									target="#{cadastroEstadoBean.estado}" />
+								<p:dialog header="Dados do Estado"  resizable="false" modal="true"
+									widgetVar="info" width="350px" height="300px" 
+									selectionMode="single">
+
+									<p:outputPanel id="tabela" layout="grid" 
+										styleClass="panelgrid-noborder">
+										<p:panelGrid columns="2"  
+											rendered="#{not empty cadastroEstadoBean.estado}"
+											columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+											styleClass="panelgrid-noborder"  style="background:  #e88c30;">
+											<p:outputLabel value="Código:" style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroEstadoBean.estado.codigo}" />
+											<p:outputLabel value="Estado:"  style="font-weight: bold"/>
+												<h:outputText value="#{cadastroEstadoBean.estado.nome}" />
+											<p:outputLabel value="Sigla:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroEstadoBean.estado.sigla}" />
+											<p:outputLabel value="País:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroEstadoBean.estado.pais}" />
+										</p:panelGrid>
+									<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+								<p:toolbarGroup align="center">
+									<p:button value="Sair"
+										style="background: #ff1828 ; color: #feffff" outcome="/estado/PesquisaEstados"/>
+								</p:toolbarGroup>
+								</p:dialog>
+							</p:commandButton>
+
+
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

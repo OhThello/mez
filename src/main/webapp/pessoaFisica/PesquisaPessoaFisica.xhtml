@@ -1,0 +1,152 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Clientes</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<br />
+			<h1>Pesquisa de Clientes</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar" style="background: #407EE6; color: #feffff"
+						action="#{pesquisaPessoaFisicaBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/pessoaFisica/CadastroPessoaFisica" icon="ui-icon-document" 
+						style="background: #00A934; color: #feffff" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" layout="grid"
+	    			columnClasses="ui-grid-col-1, ui-grid-col-11" styleClass="panelgrid-noborder">
+	    		<p:outputLabel value="Cliente"/>
+	    		<p:inputText value="#{pesquisaPessoaFisicaBean.filtro.nomeCliente}" />
+	    		
+	    		<p:outputLabel value="Cidade" />
+	    		<p:inputText value="#{pesquisaPessoaFisicaBean.filtro.nomeCidade}" />
+	    	</p:panelGrid>
+
+
+			<p:dataTable id="pessoaTable"
+				value="#{pesquisaPessoaFisicaBean.pessoaFisicas}" var="pessoa"
+				style="margin-top: 20px"
+				emptyMessage="Nenhum resultado encontrado para  pessoa física, realize um novo cadastro." rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" selectionMode="single"
+				selection="#{pesquisaPessoaFisicaBean.pessoaFisicaSelecionado}"
+				rowKey="#{pessoa.codigo}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{pessoa.codigo}" />
+				</p:column>
+				<p:column headerText="Cliente">
+					<h:outputText value="#{pessoa.nome}" />
+				</p:column>
+				<p:column headerText="E-mail">
+					<h:outputText value="#{pessoa.email}" />
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroPessoaFisica" icon="ui-icon-pencil"
+						value="Editar" title="Editar"
+						style="background: #00A934; color: #feffff">
+						<f:param name="pessoa" value="#{pessoa.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaPessoaFisicaBean.excluir}"
+						update=":frmPesquisa:pessoaTable"
+						style="background: #ff1828; color: #feffff">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover a Pessoa Física #{pessoa.nome}?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-search" update="pessoaTable"
+								oncomplete="PF('info').show()" value="Dados"
+								style="background:   #e88c30; color: white">
+								<f:setPropertyActionListener value="#{pessoa}"
+									target="#{cadastroPessoaFisicaBean.pessoaFisica}" />
+								<p:dialog header="Dados do Cliente"  resizable="false" modal="true"
+									widgetVar="info" width="350px" height="500px" 
+									selectionMode="single">
+
+									<p:outputPanel id="tabela" layout="grid" 
+										styleClass="panelgrid-noborder">
+										<p:panelGrid columns="2"  
+											rendered="#{not empty cadastroPessoaFisicaBean.pessoaFisica}"
+											columnClasses="ui-grid-col-5, ui-grid-col-7" layout="grid"
+											styleClass="panelgrid-noborder"  style="background:  #e88c30;">
+											<p:outputLabel value="Código do Cadastro:"  style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroPessoaFisicaBean.pessoaFisica.codigo}" />
+												<p:outputLabel value="Data de Cadastro:" style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroPessoaFisicaBean.pessoaFisica.dataCadastro}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</h:outputText>
+											<p:outputLabel value="Cliente:" style="font-weight: bold" />
+												<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.nome}" />
+											<p:outputLabel value="CPF:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cpf}" />
+											<p:outputLabel value="RG:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.rg}" />
+											<p:outputLabel value="Data de Nascimento:" style="font-weight: bold"  />
+											<h:outputText
+												value="#{cadastroPessoaFisicaBean.pessoaFisica.dataNascimento}">
+												<f:convertDateTime pattern="dd/MM/yyyy" />
+											</h:outputText>
+											<p:outputLabel value="Sexo:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.sexo}" />
+											<p:outputLabel value="E-mail:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.email}" />
+											<p:outputLabel value="Telefone:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.telefone}" />
+											<p:outputLabel value="Celular:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.celular}" />
+											<p:outputLabel value="Endereço:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.logradouro}" />
+											<p:outputLabel value="Numero:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.numero}" />
+											<p:outputLabel value="Complemento:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.complemento}" />
+											<p:outputLabel value="Bairro:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.bairro}" />
+											<p:outputLabel value="CEP:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cep}" />
+											<p:outputLabel value="Cidade:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cidade.nome}" />
+											<p:outputLabel value="Estado:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cidade.estado.nome}" />
+											<p:outputLabel value="Sigla:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cidade.estado.sigla}" />
+											<p:outputLabel value="País:" style="font-weight: bold"  />
+											<h:outputText value="#{cadastroPessoaFisicaBean.pessoaFisica.cidade.estado.pais}" />
+										</p:panelGrid>
+									<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+								<p:toolbarGroup align="center">
+									<p:button value="Sair"
+										style="background: #ff1828 ; color: #feffff" outcome="/pessoaFisica/PesquisaPessoaFisica"/>
+								</p:toolbarGroup>
+								</p:dialog>
+							</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

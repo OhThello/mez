@@ -1,0 +1,98 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Contas a Receber</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="receber"
+				value="#{cadastroContasReceberBean.contasReceber}" />
+		</f:metadata>
+
+		<h:form>
+			<br />
+			<br />
+			<h1>Contas a Receber</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-fw fa-floppy-o"
+						action="#{cadastroContasReceberBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa"
+						outcome="/contasReceber/PesquisaContasReceber" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="2" id="painel" styleClass="panelgrid-noborder"
+					layout="grid"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="codigo" value="Codigo" />
+					<p:inputText id="codigo" size="20" maxlength="20"
+						value="#{cadastroContasReceberBean.contasReceber.id}" />
+
+
+					<p:outputLabel value="Código venda" for="pedido" />
+					<p:selectOneMenu id="pedido"
+						value="#{cadastroContasReceberBean.contasReceber.pedido}">
+						<f:selectItem itemLabel="Selecione o Pedido" />
+						<f:selectItems value="#{cadastroContasReceberBean.pedidos}"
+							var="venda" itemLabel="#{venda.id}" itemValue="#{venda}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Cliente" for="cliente" />
+					<p:selectOneMenu id="cliente"
+						value="#{cadastroContasReceberBean.contasReceber.pessoa}">
+						<f:selectItem itemLabel="Selecione o Cliente" />
+						<f:selectItems value="#{cadastroContasReceberBean.pessoas}"
+							var="pessoa" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="vencimento" value="Vencimento:" />
+					<p:calendar id="vencimento"
+						value="#{cadastroContasReceberBean.contasReceber.dataVencimento}"
+						pattern="dd/MM/yyyy" />
+
+					<p:outputLabel for="total" value="Valor:" />
+					<p:inputText id="total"
+						value="#{cadastroContasReceberBean.contasReceber.valor}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+
+					<p:outputLabel for="lacamento" value="Data Lançamento:" />
+					<p:calendar id="lacamento"
+						value="#{cadastroContasReceberBean.contasReceber.dataLancamento}"
+						pattern="dd/MM/yyyy" />
+
+
+					<p:outputLabel for="pagamento" value="Data Pagamento:" />
+					<p:calendar id="pagamento"
+						value="#{cadastroContasReceberBean.contasReceber.dataPagamento}"
+						pattern="dd/MM/yyyy" />
+
+
+
+					<p:outputLabel for="valor" value="Valor:" />
+					<p:inputText id="valor"
+						value="#{cadastroContasReceberBean.contasReceber.valorPagamento}">
+						<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+					</p:inputText>
+
+
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

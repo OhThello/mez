@@ -1,0 +1,176 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Ajuda</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<br />
+			<h1>Olá, como posso ajudar?</h1>
+
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:accordionPanel style="margin-top:20px">
+				<p:tab title="Cadastro">
+					<h:panelGrid style="text-align: justify;" columns="2"
+						cellpadding="5">
+						<p:graphicImage library="mez" name="images/cadastro.png" />
+						<h:outputText
+							value="Cadastro é uma coletânea de dados, arquivo, banco de dados, que reúne todas as informações 
+							possíveis de seus clientes, fornecedores ou clientes potenciais de interesse da empresa. 
+							
+A importância do Cadastro é registrar os dados da empresa, produtos, fornecedoras e/ou clientes atuais e promissores. Além de ser uma exigência organizacional, o Cadastro também é uma necessidade, tendo em vista o objetivo de sempre otimizar buscas e pesquisas, além de validar informações de forma rápida e eficiente. Os cadastros são tão importantes que, atualmente, há departamentos especializados nas empresas, com o auxílio de Datawarehouse e Business Intelligence (BI).
+" />
+						<p:spacer height="10" />
+						<nav class="aw-menu">
+							<ul>
+								<h:link outcome="/ajuda/cadastro/cargo">
+									<i class="fa fa-fw fa-file-text-o"></i>Cargo</h:link>
+								<h:link outcome="/ajuda/cadastro/cidade">
+									<i class="fa fa-fw fa-file-text-o"></i>Cidade</h:link>
+								<h:link outcome="/ajuda/cadastro/clienteFisico">
+									<i class="fa fa-fw fa-file-text-o"></i>Cliente</h:link>
+								<h:link outcome="/ajuda/cadastro/clienteJuridico">
+									<i class="fa fa-fw fa-file-text-o"></i>Cliente Jurídico</h:link>
+								<h:link outcome="/ajuda/cadastro/contaCorrente">
+									<i class="fa fa-fw fa-file-text-o"></i>Conta Corrente</h:link>
+								<h:link outcome="/ajuda/cadastro/estado">
+									<i class="fa fa-fw fa-file-text-o"></i>Estado</h:link>
+								<h:link outcome="/ajuda/cadastro/funcionario">
+									<i class="fa fa-fw fa-file-text-o"></i>Funcionário</h:link>
+								<h:link outcome="/ajuda/cadastro/grupoProduto">
+									<i class="fa fa-fw fa-file-text-o"></i>Grupo Produto</h:link>
+								<h:link outcome="/ajuda/cadastro/produto">
+									<i class="fa fa-fw fa-file-text-o"></i>Produto</h:link>
+								<h:link outcome="/ajuda/cadastro/usuario">
+									<i class="fa fa-fw fa-file-text-o"></i>Usuário</h:link>
+							</ul>
+						</nav>
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Pesquisa">
+					<h:panelGrid style="text-align: justify;" columns="2"
+						cellpadding="5">
+						<p:graphicImage library="mez" name="images/pesquisa.png" />
+						<h:outputText
+							value="Pesquisa é uma importante ferramenta usada por empresas, que consiste no recolhimento de informações a 
+						respeito do mercado em que atua, dos concorrentes, clientes e fornecedores. A pesquisa de mercado tem como 
+						objetivo ajudar nas decisões de marketing, melhorando consequentemente o desempenho da empresa."></h:outputText>
+						<p:spacer height="10" />
+						<nav class="aw-menu">
+							<ul>
+								<h:link outcome="/ajuda/pesquisa/cargo">
+									<i class="fa fa-fw fa-search"></i>Cargo</h:link>
+								<h:link outcome="/ajuda/pesquisa/cidade">
+									<i class="fa fa-fw fa-search"></i>Cidade</h:link>
+								<h:link outcome="/ajuda/pesquisa/clienteFisico">
+									<i class="fa fa-fw fa-search"></i>Cliente</h:link>
+								<h:link outcome="/ajuda/pesquisa/clienteJuridico">
+									<i class="fa fa-fw fa-search"></i>Cliente Jurídico</h:link>
+								<h:link outcome="/ajuda/pesquisa/contaCorrente">
+									<i class="fa fa-fw fa-search"></i>Conta Corrente</h:link>
+								<h:link outcome="/ajuda/pesquisa/estado">
+									<i class="fa fa-fw fa-search"></i>Estado</h:link>
+								<h:link outcome="/ajuda/pesquisa/funcionario">
+									<i class="fa fa-fw fa-search"></i>Funcionário</h:link>
+								<h:link outcome="/ajuda/pesquisa/grupoProduto">
+									<i class="fa fa-fw fa-search"></i>Grupo Produto</h:link>
+								<h:link outcome="/ajuda/pesquisa/produto">
+									<i class="fa fa-fw fa-search"></i>Produto</h:link>
+								<h:link outcome="/ajuda/pesquisa/usuario">
+									<i class="fa fa-fw fa-search"></i>Usuário</h:link>
+							</ul>
+						</nav>
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Movimento">
+					<h:panelGrid style="text-align: justify;" columns="2"
+						cellpadding="5">
+						<p:graphicImage library="mez" name="images/movimento.png" />
+						<h:outputText
+							value="O movimento é o registro das vendas e compras realizadas contendo especificações como: produto, 
+					quantidade e condições de pagamento é indispensável, pois impacta diretamente em outros processos da empresa, como
+					 por exemplo: estoque e financeiro. Sendo assim, quando uma venda for efetivada é imprescindível que todas essas 
+					 informações sejam imputadas no registro, assim é possível alimentar o financeiro da empresa e gerar uma movimentação
+					  de saída de produtos no estoque."></h:outputText>
+						<p:spacer height="10" />
+						<nav class="aw-menu">
+							<ul>
+								<h:link outcome="/ajuda/movimento/venda">
+									<i class="fa fa-fw fa-shopping-cart"></i>Venda</h:link>
+								<h:link outcome="/ajuda/movimento/compra">
+									<i class="fa fa-fw fa-shopping-cart"></i>Compra</h:link>
+								<h:link outcome="/ajuda/movimento/ajuste">
+									<i class="fa fa-fw fa-calculator"></i>Ajusta Estoque</h:link>
+
+							</ul>
+						</nav>
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Financeiro">
+					<h:panelGrid style="text-align: justify;" columns="2"
+						cellpadding="5">
+						<p:graphicImage library="mez" name="images/financeiro.png" />
+						<h:outputText
+							value="O movimento financeiro de uma empresa é uma ferramenta de controle financeiro que registra as 
+					entradas e as saídas de dinheiro de uma empresa em um determinado período de tempo. Todas as movimentações financeiras
+					deste período devem ser representadas no fluxo de caixa: receitas, despesas, contas a pagar, contas a receber, 
+					empréstimos, reembolsos, rendimentos ou desvalorizações de investimentos, entre outros. Para ser uma ferramenta de 
+					controle financeiro eficiente, o fluxo de caixa deve ser atualizado, se possível, todos os dias. Isso é importante e 
+					requer muita disciplina, pois ao manter atualizados os registros financeiros da sua empresa você pode tomar decisões
+					importantes relacionadas a saúde financeira do seu negócio. Afinal, o principal objetivo de uma empresa é dar lucro,
+					e conhecer suas receitas e despesas é essencial para que ele possa ser apurado."></h:outputText>
+						<p:spacer height="10" />
+						<nav class="aw-menu">
+							<ul>
+								<h:link outcome="/ajuda/financeiro/contasPagar">
+									<i class="fa fa-fw fa-stack-overflow"></i>Contas Pagar</h:link>
+								<h:link outcome="/ajuda/financeiro/contasReceber">
+									<i class="fa fa-fw fa-stack-overflow"></i>Contas Receber</h:link>
+
+							</ul>
+						</nav>
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Relatório">
+					<h:panelGrid style="text-align: justify;" columns="2"
+						cellpadding="5">
+						<p:graphicImage library="mez" name="images/relatorio.png" />
+						<h:outputText
+							value="O Relatório por se tratar de uma descrição resumida, mas bem organizada e confiável, sobre determinado 
+					domínio da entidade, o relatório contábil permite que os gestores analisem e interpretem os dados, optando pelas melhores 
+					soluções para a situação do negócio."></h:outputText>
+						<p:spacer height="10" />
+						<nav class="aw-menu">
+							<ul>
+								<h:link outcome="/ajuda/relatorio/clientes">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Clientes</h:link>
+								<h:link outcome="/ajuda/relatorio/contaPagar">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Contas Pagar</h:link>
+								<h:link outcome="/ajuda/relatorio/contaReceber">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Contas Receber</h:link>
+								<h:link outcome="/ajuda/relatorio/formaPagamento">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Forma de Pagamento</h:link>
+								<h:link outcome="/ajuda/relatorio/lucroReal">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Lucro real</h:link>
+								<h:link  outcome="/ajuda/relatorio/movimentoEstoque">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Movimento de estoque</h:link>
+								<h:link outcome="/ajuda/relatorio/pedidos">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Pedidos Status</h:link>
+								<h:link outcome="/ajuda/relatorio/produtos">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Produtos Vendas</h:link>
+								<h:link outcome="/ajuda/relatorio/vendas">
+									<i class="fa fa-fw fa-file-pdf-o"></i>Vendas</h:link>
+
+							</ul>
+						</nav>
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

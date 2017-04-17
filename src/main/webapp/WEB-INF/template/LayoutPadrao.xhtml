@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</f:facet>
+
+	<title>MeZ</title>
+	
+
+	<h:outputStylesheet library="mez" name="styles/custom.css" />
+	<h:outputStylesheet library="mez" name="styles/layout.css" />
+	<h:outputStylesheet library="mez" name="styles/components.css" />
+
+	<h:outputScript target="body" library="mez"
+		name="js/jquery.maskMoney.js" />
+	<h:outputScript target="body" library="mez" name="javascripts/app.js" />
+</h:head>
+
+<h:body>
+
+	<!--MENSAGEM DE EXCLUSãO GENÉRICA-->
+	<h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+			<p:commandButton value="Sim" type="button"
+				styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+				style="background: #00A934; color: #feffff" />
+			<p:commandButton value="Não" type="button"
+				styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+				style="background: #ff1828; color: #feffff" />
+		</p:confirmDialog>
+	</h:form>
+
+	<!--FIM DA EXCLUSÃO-->
+
+
+	<p:ajaxStatus styleClass="ajax-status" onsuccess="configurarMoeda()">
+		<f:facet name="start">
+			<h:graphicImage library="mez" name="images/loading.gif" />
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+
+
+
+
+
+
+	<header class="aw-topbar">
+		<h:link outcome="/Home">
+			<h:graphicImage library="mez" name="images/logo.png" />
+			<h:graphicImage library="mez" name="images/nome.png" />
+		</h:link>
+
+
+		<a href="#" class="aw-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
+
+		
+	</header>
+
+	<aside class="aw-sidebar  js-sidebar">
+
+		<nav class="aw-menu">
+			<ul>
+				<p:spacer height="30" />
+				<li><i class="fa  fa-fw fa-user"></i>Olá #{seguranca.nomeUsuario}
+				<p:spacer height="10" /></li>
+				<li><h:link outcome="/Home">
+						<i class="fa  fa-fw  fa-home"></i>Início</h:link></li>
+				<li class="is-selected"><h:link outcome="/pessoaFisica/PesquisaPessoaFisica">
+						<i class="fa  fa-fw  fa-user"></i>Clientes</h:link></li>
+
+
+				<h:form>
+					<p:panelMenu>
+						<p:submenu label="Cadastros">
+							<p:menuitem icon="fa fa-fw fa-user" value="Clientes"
+								outcome="/pessoaFisica/PesquisaPessoaFisica" />
+							<p:menuitem icon="fa fa-fw fa-user" value="Cliente Jurídico"
+								outcome="/pessoaJuridica/PesquisaPessoaJuridica" />
+							<p:menuitem icon="fa fa-fw fa-archive" value="Produtos"
+								outcome="/produtos/PesquisaProdutos" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Grupo Produto"
+								outcome="/grupoProduto/PesquisaGrupoProduto" />
+							<p:menuitem icon="fa fa-fw fa-male" value="Usuário"
+								outcome="/usuario/PesquisaUsuario" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Grupo"
+								outcome="/grupo/PesquisaGrupo" />
+							<p:menuitem icon="fa fa-fw fa-male" value="Funcionário"
+								outcome="/funcionario/PesquisaFuncionario" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Cargo"
+								outcome="/cargo/PesquisaCargo" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Estado"
+								outcome="/estado/PesquisaEstados.xhtml" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Cidade"
+								outcome="/cidade/PesquisaCidade" />
+							<p:menuitem icon="fa fa-fw fa-file-text-o" value="Conta Corrente"
+								outcome="/contaCorrente/PesquisaContaCorrente" />
+						</p:submenu>
+						<p:submenu label="Movimentos">
+							<p:menuitem icon="fa fa-shopping-cart" value="Nova Venda"
+								outcome="/pedidos/CadastroPedido" ajax="false" />
+							<p:menuitem icon="fa fa-search" value="Pesquisa Vendas"
+								outcome="/pedidos/PesquisaPedidos" ajax="false" />
+							<p:menuitem icon="fa fa-search" value="Pesquisa Compras"
+								outcome="/compra/PesquisaCompras" ajax="false" />
+							<p:menuitem icon="fa fa-search" value="Pesquisa Ajusta Estoque"
+								outcome="/ajustaEstoque/PesquisaAjustaEstoque" ajax="false" />
+						</p:submenu>
+						<p:submenu label="Finaceiro">
+							<p:menuitem icon="fa  fa-fw  fa-search" value="Contas Receber"
+								outcome="/contasReceber/PesquisaContasReceber" />
+							<p:menuitem icon="fa  fa-fw  fa-search" value="Contas Pagar"
+								outcome="/contasPagar/PesquisaContasPagar" />
+
+						</p:submenu>
+						<p:submenu label="Relatórios">
+							<p:submenu label="Relatórios Cadastrais">
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Clientes"
+									outcome="/relatorios/RelatorioClientes" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Funcionário"
+									action="#{relatorioCadastralBean.emitir('pessoaFuncionario')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Produto"
+									action="#{relatorioCadastralBean.emitir('produto')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Grupo Produto"
+									action="#{relatorioCadastralBean.emitir('grupoProduto')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Cargo"
+									action="#{relatorioCadastralBean.emitir('cargo')}" ajax="false"
+									target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Cidade"
+									action="#{relatorioCadastralBean.emitir('cidade')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Estado"
+									action="#{relatorioCadastralBean.emitir('estado')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Pessoa Física"
+									action="#{relatorioCadastralBean.emitir('Fisica')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Pessoa Jurídica"
+									action="#{relatorioCadastralBean.emitir('juridica')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Usuário"
+									action="#{relatorioCadastralBean.emitir('usuario')}"
+									ajax="false" target="_blank" />
+									<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Conta corrente"
+									action="#{relatorioCadastralBean.emitir('conta')}"
+									ajax="false" target="_blank" />
+							</p:submenu>
+							<p:submenu label="Relatórios Gerencial">
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Pedidos Status"
+									outcome="/relatorios/RelatorioPedidos" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Vendas"
+									outcome="/relatorios/RelatorioVenda" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Produtos Vendas"
+									outcome="/relatorios/RelatorioProdutoPeriodo" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Produtos Vendidos"
+									action="#{relatorioCadastralBean.emitir('produto_mais_vendido')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Produtos menos Vendidos"
+									action="#{relatorioCadastralBean.emitir('produto_menos_vendido')}"
+									ajax="false" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Forma de Pagamento"
+									outcome="/relatorios/RelatorioFormaPagamento" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Contas Receber"
+									outcome="/relatorios/RelatorioContasReceber" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Contas Pagar"
+									outcome="/relatorios/RelatorioContasPagar" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o" value="Lucro Real"
+									outcome="/relatorios/RelatorioLucro" target="_blank" />
+								<p:menuitem icon="fa  fa-fw  fa-file-pdf-o"
+									value="Movimento de Estoque"
+									outcome="/relatorios/RelatorioMovimentoEstoque" target="_blank" />
+							</p:submenu>
+						</p:submenu>
+						<p:submenu label="Sair">
+							<p:menuitem icon="fa  fa-fw  fa-sign-out" value="Sair"
+								url="/j_spring_security_logout" />
+						</p:submenu>
+
+					</p:panelMenu>
+				</h:form>
+
+
+				<li><h:link outcome="/ajuda/PesquisaAjuda">
+						<i class="fa fa-question"></i>Ajuda</h:link></li>
+						
+						<li><h:link outcome="/backup/backup">
+						<i class="fa fa-database"></i>Backup</h:link></li>
+
+
+
+
+			</ul>
+		</nav>
+
+	</aside>
+
+	<section class="aw-content  js-content">
+		<ui:insert name="corpo" />
+	</section>
+
+	<script>
+		function configurarMoeda() {
+			$(".moeda").maskMoney({
+				decimal : ",",
+				thousands : ".",
+				allowZero : true
+			});
+		}
+
+		$(document).ready(function() {
+			configurarMoeda();
+		});
+	</script>
+
+
+</h:body>
+
+</html>

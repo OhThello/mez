@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cidade" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="40441173-c71d-401f-8e8f-86a131a03b87">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     cidade.`codigo` AS cidade_codigo,
+     cidade.`nome` AS cidade_nome,
+     estado.`nome` AS estado_nome,
+     estado.`pais` AS estado_pais,
+     estado.`sigla` AS estado_sigla
+FROM
+     `estado` estado INNER JOIN `cidade` cidade ON estado.`codigo` = cidade.`estado_codigo`]]>
+	</queryString>
+	<field name="cidade_codigo" class="java.lang.Long"/>
+	<field name="cidade_nome" class="java.lang.String"/>
+	<field name="estado_nome" class="java.lang.String"/>
+	<field name="estado_sigla" class="java.lang.String"/>
+	<field name="estado_pais" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="131" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="76" width="555" height="20" uuid="e970cb3e-db01-4b55-b557-f10bfb87ad85"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="555" height="20" uuid="4a537d4e-c637-4d9f-b5e2-c4be0e79e442"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="108" width="555" height="23" uuid="d158e56b-2b9a-44d6-b386-979e10ff100d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Cidades]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="10" width="553" height="33" uuid="c97a4025-5531-4c83-a1cd-7e53378e97ca"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="555" height="13" uuid="902e1feb-4f86-482c-8a1e-c1f5bf904662"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="8101516d-7b52-4033-a47d-dc0731c43276"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="111" height="15" forecolor="#000000" uuid="36370f63-6f79-4acc-aca5-ceb43d271550"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="19" width="111" height="15" forecolor="#000000" uuid="60835134-d6b0-427f-b2f7-0412d3bb2d5c"/>
+				<text><![CDATA[Cidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="19" width="111" height="15" forecolor="#000000" uuid="442b54e2-77d2-4d93-95ef-53c5b895e68b"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="19" width="111" height="15" forecolor="#000000" uuid="cea41724-38eb-4f85-a7e0-c84053ff624a"/>
+				<text><![CDATA[Sigla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="19" width="111" height="15" forecolor="#000000" uuid="fbcb5c2d-8dce-4b19-9a83-f94eef2dc00e"/>
+				<text><![CDATA[País]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="b5cf9187-cdf7-44bd-882d-2c651d5fa641"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="f58e8bd0-5e29-4423-852a-cb9eee6c840f"/>
+				<textFieldExpression><![CDATA[$F{cidade_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="09c77812-c025-42c9-b475-88144b4a2e84"/>
+				<textFieldExpression><![CDATA[$F{cidade_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="6d867b33-30c1-4f95-b659-cfa22413c0c0"/>
+				<textFieldExpression><![CDATA[$F{estado_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="ee191893-f3b0-4d64-aeef-3f4f6586eeba"/>
+				<textFieldExpression><![CDATA[$F{estado_sigla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="7ad21259-f33d-4ee9-aabb-0895050ebb7d"/>
+				<textFieldExpression><![CDATA[$F{estado_pais}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="1611d31c-fd41-42b2-a164-fd6ba713f46b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="2f99b920-898d-4652-90a3-343519aa9dda"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="7576bac9-1869-478d-972b-34bf8227ca82"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="973044c8-9a7e-4510-b99b-ac51e47d06d2"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

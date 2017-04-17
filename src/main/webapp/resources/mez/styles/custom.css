@@ -1,0 +1,79 @@
+/* BASE */
+body {
+	margin: 0;
+	font-size: 13px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* TABVIEW */
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a {
+	color: #feffff;
+}
+
+.ui-tabs ul.ui-tabs-nav{
+	background:  #DCDDDF url(http://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
+}
+
+.ui-panel .ui-panel-titlebar{
+	background: #1e94d2;
+	border: none;
+}
+
+
+@media (max-width: 640px) {
+	.ui-tabs.ui-tabs-top > .ui-tabs-nav li {
+		width: 100%;
+	}
+}
+
+/* Tela inicial */
+.ui-widget-content {
+	border: 1px solid #ffffff;
+
+	}
+
+.ui-tabs .ui-panel-titlebar{
+	background: #ffffff repeat-x scroll 0 0;
+}
+
+.ui-widget {
+	    font-size: 0.9em;
+}
+	
+.ui-panel {
+	
+    padding-top: 2.9em;
+    padding-right: 2.9em;
+    padding-bottom: 2.9em;
+    padding-left: 2.9em;
+}
+
+.ui-widget-content {
+	background: #ffffff repeat-x scroll 0 0;
+	border: 1px solid #ffffff;	
+}
+
+.ui-widget-header {
+	background: #1e94d2;
+}
+
+.ui-datepicker table{
+	
+    border-color: #1e94d2;
+}
+
+.ui-widget-content
+
+/* PANELGRID */
+.ui-panelgrid.panelgrid-noborder .ui-grid-responsive {
+	border: none;
+}
+
+@media (max-width: 640px) {
+	.ui-panelgrid.panelgrid-noborder .ui-grid-responsive .ui-grid-row {
+		border: none;
+	}
+}
+
+/* BACKUP */
+

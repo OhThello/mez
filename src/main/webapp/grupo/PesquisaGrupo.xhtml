@@ -1,0 +1,111 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Grupos</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+		<br/> 
+			<h1>Pesquisa de Grupos</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar" style="background: #407EE6; color: #feffff"
+						action="#{pesquisaGrupoBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/grupo/CadastroGrupo" icon="ui-icon-document" 
+					style="background: #00A934; color: white"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" layout="grid"
+	    			columnClasses="ui-grid-col-1, ui-grid-col-11" styleClass="panelgrid-noborder">
+	    		<p:outputLabel value="Nome"/>
+	    		<p:inputText value="#{pesquisaGrupoBean.filtro.nomeGrupo}" />
+	    		
+	    		<p:outputLabel value="Descrição" />
+	    		<p:inputText value="#{pesquisaGrupoBean.filtro.nomeDescricao}" />
+	    	</p:panelGrid>
+
+
+			<p:dataTable id="grupoTable" value="#{pesquisaGrupoBean.grupos}"
+				var="grupo" style="margin-top: 20px"
+				emptyMessage="Nenhum grupo encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selectionMode="single"
+				selection="#{pesquisaGrupoBean.grupoSelecionado}"
+				rowKey="#{grupo.id}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{grupo.id}" />
+				</p:column>
+				<p:column headerText="Grupo">
+					<h:outputText value="#{grupo.nome}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{grupo.descricao}" />
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroGrupo" icon="ui-icon-pencil"
+						value="Editar" title="Editar"  style="background: #00A934; color: #feffff">
+						<f:param name="grupo" value="#{grupo.id}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaGrupoBean.excluir}"
+						update=":frmPesquisa:grupoTable" style="background: #ff1828; color: #feffff">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover o grupo #{grupo.nome}?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-search" update="grupoTable"
+								oncomplete="PF('info').show()" value="Dados"
+								style="background:   #e88c30; color: #feffff">
+								<f:setPropertyActionListener value="#{grupo}"
+									target="#{cadastroGrupoBean.grupo}" />
+								<p:dialog header="Dados do Grupo"  resizable="false" modal="true"
+									widgetVar="info" width="350px" height="300px" 
+									selectionMode="single">
+
+									<p:outputPanel id="tabela" layout="grid" 
+										styleClass="panelgrid-noborder">
+										<p:panelGrid columns="2"  
+											rendered="#{not empty cadastroGrupoBean.grupo}"
+											columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+											styleClass="panelgrid-noborder"  style="background:  #e88c30;">
+											<p:outputLabel value="Código:" style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroGrupoBean.grupo.id}" />
+											<p:outputLabel value="Grupo:"  style="font-weight: bold"/>
+												<h:outputText value="#{cadastroGrupoBean.grupo.nome}" />
+											<p:outputLabel value="Descrição:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroGrupoBean.grupo.descricao}" />
+										</p:panelGrid>
+									<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+								<p:toolbarGroup align="center">
+									<p:button value="Sair"
+										style="background: #ff1828 ; color: #feffff" outcome="/grupo/PesquisaGrupo"/>
+								</p:toolbarGroup>
+								</p:dialog>
+							</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+		
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

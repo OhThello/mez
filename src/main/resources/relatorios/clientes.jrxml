@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e18ce92c-4700-4b92-b4bd-72523b0759d0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="nome" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     pessoa.`cliente_id` AS pessoa_cliente_id,
+     pessoa.`dataCadastro` AS pessoa_dataCadastro,
+     pessoa.`nome` AS pessoa_nome,
+     pessoa.`celular` AS pessoa_celular
+FROM
+     `pessoa` pessoa
+WHERE
+ pessoa.`nome` like $P{nome}
+order by
+ pessoa.`nome` asc]]>
+	</queryString>
+	<field name="pessoa_cliente_id" class="java.lang.Long"/>
+	<field name="pessoa_dataCadastro" class="java.sql.Timestamp"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="pessoa_celular" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="139" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="63" width="555" height="13" uuid="474270fa-5941-4449-8c41-1c1f60ec0996"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="10" width="553" height="33" uuid="2cb4c4d9-7f28-4213-a427-86d023dd7cef"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-2" y="108" width="555" height="23" uuid="5b1e436a-3b9e-4e44-bcb6-565386dd2022"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Clientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="555" height="20" uuid="3c4034e8-487a-4167-80f8-58849a43e5eb"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="76" width="555" height="20" uuid="3e17b62c-a0ac-43c3-a934-93b1f0626058"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="689c39df-5524-45ed-884c-0b262bd36afb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="50" height="15" forecolor="#000000" uuid="5435c7a5-8291-498f-9892-ba23e10c989f"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="50" y="19" width="90" height="15" forecolor="#000000" uuid="71f03916-1179-4b96-a89e-365a8eec1d34"/>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="140" y="19" width="307" height="15" forecolor="#000000" uuid="dfe15a4d-0b13-40c3-9f35-785889a75e98"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="447" y="19" width="108" height="15" forecolor="#000000" uuid="a9a1176f-8dcc-4f79-82f1-51f211f5b31f"/>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="ca73edb8-34ec-429b-90c8-95344023ae77"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="50" height="15" uuid="3a243a14-0ea7-4cfa-86c5-2a027b1c5494"/>
+				<textFieldExpression><![CDATA[$F{pessoa_cliente_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="Detail" x="50" y="0" width="90" height="15" uuid="6fa1a23d-05b6-4e21-8508-9ed5a403114e"/>
+				<textFieldExpression><![CDATA[$F{pessoa_dataCadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="140" y="0" width="307" height="15" uuid="322ed43d-0242-4538-bebb-68b9f1b36eeb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="447" y="0" width="108" height="15" uuid="448318ef-493e-431a-a20f-866c50d4e349"/>
+				<textFieldExpression><![CDATA[$F{pessoa_celular}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="01cd2dd2-4deb-46d9-9f1b-128af2a00e4c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="1695f6b9-079f-4edd-b9dd-7fee16cf7f72"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="3d44fa58-8b0c-40dd-a544-bea1cd37202e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="f0cc1c4a-b438-461b-8254-e723cc9017e3"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

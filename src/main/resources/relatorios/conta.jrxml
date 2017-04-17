@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="conta" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9bb5d377-cd9f-47ff-8735-f9dae7c89126">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="2"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Marcelo\\workspace\\mez\\src\\main\\resources\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     conta_corrente.`nome` AS conta_corrente_nome,
+     conta_corrente.`saldo` AS conta_corrente_saldo,
+     conta_corrente.`codigo` AS conta_corrente_codigo
+FROM
+     `conta_corrente` conta_corrente]]>
+	</queryString>
+	<field name="conta_corrente_nome" class="java.lang.String"/>
+	<field name="conta_corrente_saldo" class="java.math.BigDecimal"/>
+	<field name="conta_corrente_codigo" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="63" width="555" height="13" uuid="537776bd-bb65-469e-b909-95c7c27dfba1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="10" width="553" height="33" uuid="eb7d0aa2-109a-4c8b-a2ff-138f942adec6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="108" width="555" height="23" uuid="e8e074bd-0c4c-461e-8bae-e1f5375e98e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Contas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="43" width="555" height="20" uuid="44b9726e-a8b2-4836-a39b-48ced1ae012b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="76" width="555" height="20" uuid="f9133f50-ee4a-40aa-a0fa-d09537d5ef28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="50ef0cb1-4b74-49d3-926c-03cbe5021301"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="360" height="15" forecolor="#000000" uuid="0f82b38e-a8c1-44cf-9625-728cc932c242"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Conta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="360" y="19" width="194" height="15" forecolor="#000000" uuid="18833ac3-b466-4ba2-9bab-dfb6ccf95b26"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="71d5a20a-9761-4ac7-b16e-208190d6a7f6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="360" height="15" uuid="af3f8212-50d2-4d95-a8be-47bd95a2dfea"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{conta_corrente_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement style="Detail" x="360" y="0" width="194" height="15" uuid="f9cd43d8-df81-492b-b1e7-f5598d3f235a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conta_corrente_saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="1" y="3" width="553" height="47" uuid="3c398013-1c1c-4ff8-8ff7-7a80c0094e96"/>
+				<subreportParameter name="idDebito">
+					<subreportParameterExpression><![CDATA[$F{conta_corrente_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "debito.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="1" y="0" width="552" height="50" uuid="fd34e02e-4ecf-4860-b53a-78d19593042b"/>
+				<subreportParameter name="idCredito">
+					<subreportParameterExpression><![CDATA[$F{conta_corrente_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "credito.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="f23939c9-ec92-4e67-b1ec-8128b0737c57"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="e5baa85b-e306-42b0-81eb-b62f5f8b8dac"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="50b82746-087a-45f0-84d2-ac5a7384d73a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="d5dea59c-7fcf-4dda-aa9a-a857f0eaaae9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

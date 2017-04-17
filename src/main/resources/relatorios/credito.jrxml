@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="credito" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ba588015-82a7-4851-b315-962be21361b6">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idCredito" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[$F{contasreceber_contaCorrente_codigo}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     contasreceber.`receber_dataPagamento` AS contasreceber_receber_dataPagamento,
+     pessoa.`nome` AS pessoa_nome,
+     contasreceber.`receber_valorPagamento` AS contasreceber_receber_valorPagamento,
+     contasreceber.`contaCorrente_codigo` AS contasreceber_contaCorrente_codigo
+FROM
+     `pessoa` pessoa INNER JOIN `contasreceber` contasreceber ON pessoa.`cliente_id` = contasreceber.`pessoa_codigo`
+where
+contasreceber.`contaCorrente_codigo` = $P{idCredito}]]>
+	</queryString>
+	<field name="contasreceber_receber_dataPagamento" class="java.sql.Date"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="contasreceber_receber_valorPagamento" class="java.math.BigDecimal"/>
+	<field name="contasreceber_contaCorrente_codigo" class="java.lang.Long"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="36" height="20" forecolor="#999999" uuid="6432cb0b-9e61-422e-b6c3-0b076913ce54"/>
+				<text><![CDATA[Crédito]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="36" y="0" width="321" height="20" uuid="0a817146-8919-4506-afec-dc71803ac1f4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="357" y="0" width="73" height="20" uuid="c4d322ed-70b5-4250-9b95-df58fc084e10"/>
+				<textFieldExpression><![CDATA[$F{contasreceber_receber_dataPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="430" y="0" width="125" height="20" forecolor="#0000FF" uuid="7837bc80-ea63-4fdd-84a7-6b393d0541b2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contasreceber_receber_valorPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

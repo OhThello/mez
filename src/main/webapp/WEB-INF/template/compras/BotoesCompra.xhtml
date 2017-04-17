@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<p:toolbar style="margin-top: 25px; background: #feffff; border-color: #feffff">
+  		<p:toolbarGroup>
+  			<p:button value="Limpar" outcome="/compra/CadastroCompra" style="background: #A5A8AB; color: white"/>
+  			<p:commandButton value="Salvar" action="#{cadastroCompraBean.salvar}" icon="fa fa-fw fa-floppy-o"
+  				update="@form" disabled="#{cadastroCompraBean.compra.naoAlteravel}" style="background: #00A934; color: white"/>
+  		</p:toolbarGroup>
+  		
+  		<p:toolbarGroup align="right">
+  			<p:commandButton value="Emitir" action="#{emissaoCompraBean.emitirCompra}" icon="fa fa-fw fa-dollar"
+  				process="@form" update="@form" disabled="#{cadastroCompraBean.compra.naoEmissivel}" style="background: #00A934; color: white" />
+  			<p:commandButton value="Cancelar" action="#{cancelamentoCompraBean.cancelarCompra}" icon="fa fa-fw fa-remove"
+  				process="@this" update="@form" disabled="#{cadastroCompraBean.compra.naoCancelavel}" style="background: #ff1828; color: white " />
+  			
+  			<p:separator/>
+  		
+  			<p:button value="Pesquisa" outcome="/compra/PesquisaCompras" style="background: #407EE6; color: white" icon="fa fa-fw fa-search"/>
+  		</p:toolbarGroup>
+  	</p:toolbar>
+  	
+</ui:composition>

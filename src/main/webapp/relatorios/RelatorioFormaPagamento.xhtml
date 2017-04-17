@@ -1,0 +1,51 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Relatório de Forma de Pagamento</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+		
+		<p:spacer height="10"></p:spacer>
+			<h1>Relatório de Forma de Pagamento</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton value="Emitir" style="background: #00A934; color: #feffff"
+						action="#{relatorioFormaPagamentoBean.emitir}" ajax="false"  />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Data de criação" />
+				<h:panelGroup>
+					<p:calendar value="#{relatorioFormaPagamentoBean.dataInicio}"
+						label="Data inicial" pattern="dd/MM/yyyy" size="8" />
+					<p:spacer width="8" />
+					<h:outputText value="a" />
+					<p:spacer width="8" />
+					<p:calendar value="#{relatorioFormaPagamentoBean.dataFim}"
+						label="Data final" pattern="dd/MM/yyyy" size="8" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Forma de pagamento" for="formaPagamento" />
+				<p:selectOneMenu id="formaPagamento"
+					value="#{relatorioFormaPagamentoBean.forma}">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems
+						value="#{relatorioFormaPagamentoBean.formasPagamento}"
+						var="formaPagamento" itemValue="#{formaPagamento}"
+						itemLabel="#{formaPagamento.descricao}"/>
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

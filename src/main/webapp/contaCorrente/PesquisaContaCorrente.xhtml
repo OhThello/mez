@@ -1,0 +1,133 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Conta Corrente</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<br />
+			<h1>Pesquisa de Conta Corrente</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar
+				style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar"
+						style="background: #407EE6; color: #feffff"
+						action="#{pesquisaContaCorrenteBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" icon="ui-icon-document" 
+						outcome="/contaCorrente/CadastroContaCorrente"
+						style="background: #00A934; color: #feffff" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel"
+				style="width: 100%; margin-top: 20px" layout="grid"
+				columnClasses="ui-grid-col-1, ui-grid-col-11"
+				styleClass="panelgrid-noborder">
+				<p:outputLabel value="Conta" />
+				<p:inputText value="#{pesquisaContaCorrenteBean.filtro.nomeConta}" />
+
+			</p:panelGrid>
+
+
+
+
+			<p:dataTable id="contaTable"
+				value="#{pesquisaContaCorrenteBean.contaCorrentes}" var="conta"
+				style="margin-top: 20px"
+				emptyMessage="Nenhuma conta corrente encontrada." rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" selectionMode="single"
+				selection="#{pesquisaContaCorrenteBean.contaCorrenteSelecionado}"
+				rowKey="#{conta.codigo}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{conta.codigo}" />
+				</p:column>
+				<p:column headerText="Conta Corrente">
+					<h:outputText value="#{conta.nome}" />
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{conta.saldo}">
+						<f:convertNumber type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroContaCorrente" icon="ui-icon-pencil"
+						value="Editar" title="Editar"
+						style="background: #00A934; color: #feffff">
+						<f:param name="conta" value="#{conta.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaContaCorrenteBean.excluir}"
+						update=":frmPesquisa:contaTable"
+						style="background: #ff1828; color: #feffff">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover a Conta Corrente?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+
+
+					<p:commandButton icon="ui-icon-search" update="contaTable"
+						oncomplete="PF('info').show()" value="Dados"
+						style="background:   #e88c30; color: #feffff">
+						<f:setPropertyActionListener value="#{conta}"
+							target="#{cadastroContaCorrenteBean.contaCorrente}" />
+						<p:dialog header="Dados do Conta" resizable="false" modal="true"
+							widgetVar="info" width="350px" height="300px"
+							selectionMode="single">
+
+							<p:outputPanel id="tabela" layout="grid"
+								styleClass="panelgrid-noborder">
+								<p:panelGrid columns="2"
+									rendered="#{not empty cadastroContaCorrenteBean.contaCorrente}"
+									columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+									styleClass="panelgrid-noborder" style="background:  #e88c30;">
+									<p:outputLabel value="Código:" style="font-weight: bold" />
+									<h:outputText
+										value="#{cadastroContaCorrenteBean.contaCorrente.codigo}" />
+									<p:outputLabel value="Conta:" style="font-weight: bold" />
+									<h:outputText
+										value="#{cadastroContaCorrenteBean.contaCorrente.nome}" />
+									<p:outputLabel value="Saldo:" style="font-weight: bold" />
+									<h:outputText
+										value="#{cadastroContaCorrenteBean.contaCorrente.saldo}">
+										<f:convertNumber type="currency" />
+									</h:outputText>
+									<p:outputLabel value="Data de atualização:"
+										style="font-weight: bold" />
+									<h:outputText value="#{conta.data}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:panelGrid>
+								<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+							<p:toolbarGroup align="center">
+								<p:button value="Sair"
+									style="background: #ff1828 ; color: #feffff"
+									outcome="/cargo/PesquisaCargo" />
+							</p:toolbarGroup>
+						</p:dialog>
+					</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

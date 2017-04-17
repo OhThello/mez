@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pessoaFisica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ee9b549-01cc-46df-93d0-a71590fef392">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     pessoa.`cliente_id` AS pessoa_cliente_id,
+     pessoa.`nome` AS pessoa_nome,
+     pessoa.`email` AS pessoa_email,
+     pessoa.`dataCadastro` AS pessoa_dataCadastro,
+     pessoa.`celular` AS pessoa_celular,
+     funcionario.`dataAdmissao` AS funcionario_dataAdmissao,
+     cargo.`nome` AS cargo_nome
+FROM
+     `pessoa` pessoa INNER JOIN `pessoafisica` pessoafisica ON pessoa.`cliente_id` = pessoafisica.`cliente_id`
+     INNER JOIN `funcionario` funcionario ON pessoafisica.`cliente_id` = funcionario.`cliente_id`
+     INNER JOIN `cargo` cargo ON funcionario.`cargo_codigo` = cargo.`codigo`
+
+order by
+ pessoa.`nome` ASC
+]]>
+	</queryString>
+	<field name="pessoa_cliente_id" class="java.lang.Long"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="pessoa_email" class="java.lang.String"/>
+	<field name="pessoa_dataCadastro" class="java.sql.Timestamp"/>
+	<field name="pessoa_celular" class="java.lang.String"/>
+	<field name="funcionario_dataAdmissao" class="java.sql.Timestamp"/>
+	<field name="cargo_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="156" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="76" width="555" height="20" uuid="e8bc7539-5265-4eb9-aef6-5829b508b6b6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="33" uuid="edc4d838-e9ce-4e15-a2c8-b57db33175b2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="555" height="13" uuid="a9fbbd29-f31c-44e5-a052-8d872da167f2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="110" width="555" height="22" uuid="9eea278c-c7aa-42ac-8672-746b293437b6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de funcionários]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="555" height="20" uuid="c4a6709d-6935-4d87-9a88-ecfeba003ae7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20" uuid="52d9cdf9-752b-4276-908d-c7cdb69826ef"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="0" width="75" height="20" uuid="d6670b0f-07c2-4492-b794-1a07c0821bd9"/>
+				<text><![CDATA[Data Cadastro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="238" height="20" uuid="73468090-5c55-417a-8f5e-01b7491f8529"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Funcionário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="0" width="92" height="20" uuid="49f75f64-8536-4754-ae92-5008e0072e73"/>
+				<text><![CDATA[Data Admissão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="0" width="95" height="20" uuid="91ee6588-255c-4cee-8c5c-908f6e2b26fe"/>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="dae9327c-bab1-4cf6-9312-52b3f80c8809"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="55" y="0" width="75" height="20" uuid="5c2d3c05-7e6b-4ed3-be61-d09d26ecec38"/>
+				<textFieldExpression><![CDATA[$F{pessoa_dataCadastro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="238" height="20" uuid="bc533e3c-3fd7-49d3-96b3-bf99c5be411c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="55" height="20" uuid="42b27cbc-8b10-4dd4-a88f-1f8c06bfc275"/>
+				<textFieldExpression><![CDATA[$F{pessoa_cliente_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="368" y="0" width="92" height="20" uuid="3c3b56d9-cc64-40a7-8c58-e3cbfea50171"/>
+				<textFieldExpression><![CDATA[$F{funcionario_dataAdmissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="0" width="95" height="20" uuid="e5738219-a851-46ee-ada5-38e4d0365a4f"/>
+				<textFieldExpression><![CDATA[$F{cargo_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="9" width="555" height="1" uuid="d11d67e9-3d84-4679-9a88-876416d66cc7"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

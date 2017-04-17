@@ -1,0 +1,38 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<o:viewParam name="compra" value="#{cadastroCompraBean.compra}" />
+		<f:event listener="#{cadastroCompraBean.inicializar}" type="preRenderView" />
+	</f:metadata>
+
+    <ui:define name="titulo">#{cadastroCompraBean.editando ? "Edição de Compra" : "Nova Compra"}</ui:define>
+    
+    <ui:define name="corpo">
+    	<h:form id="frmCadastro">
+    	<br/> 
+	    	<h1>#{cadastroCompraBean.editando ? "Edição de Compra" : "Novo Compra"}</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<ui:include src="/WEB-INF/template/compras/BotoesCompra.xhtml" />
+	    	
+	    	<ui:include src="/WEB-INF/template/compras/CapaCompra.xhtml" />
+	    	
+	    	<p:tabView>
+	    		<p:tab title="Itens" id="itens">
+	    			<ui:include src="/WEB-INF/template/compras/ItensCompra.xhtml" />
+	    		</p:tab>
+	    		<p:tab title="Observação">
+	    			<ui:include src="/WEB-INF/template/compras/ObservacaoCompra.xhtml" />
+	    		</p:tab>
+	    	</p:tabView>
+	    	
+    	</h:form>
+    </ui:define>
+</ui:composition>

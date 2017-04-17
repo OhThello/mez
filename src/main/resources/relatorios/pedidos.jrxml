@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pedidos_emetidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a833a402-9569-4ade-9a57-d52d7a9c6468">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_fim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     pedido.`id` AS pedido_id,
+     pedido.`data_criacao` AS pedido_data_criacao,
+     pedido.`valor_total` AS pedido_valor_total,
+     pessoa.`nome` AS pessoa_nome,
+     usuario.`nome` AS usuario_nome,
+     pedido.`status` AS pedido_status
+FROM
+     `pessoa` pessoa INNER JOIN `pedido` pedido ON pessoa.`cliente_id` = pedido.`cliente_id`
+     INNER JOIN `usuario` usuario ON pedido.`vendedor_id` = usuario.`id`
+WHERE
+     pedido.`status` = $P{status}
+ AND
+     cast(pedido.`data_criacao` as Date) BETWEEN $P{data_inicio} and $P{data_fim}
+ORDER BY
+     pedido.`data_criacao` ASC]]>
+	</queryString>
+	<field name="pedido_id" class="java.lang.Long"/>
+	<field name="pedido_data_criacao" class="java.sql.Timestamp"/>
+	<field name="pedido_valor_total" class="java.math.BigDecimal"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="usuario_nome" class="java.lang.String"/>
+	<field name="pedido_status" class="java.lang.String"/>
+	<variable name="pedido_valor_total_1" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{pedido_valor_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="76" width="555" height="20" uuid="ba271ac5-e8ad-4d11-9810-29549a976bab"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="555" height="33" uuid="c5589e71-5aac-4539-9169-bc95d0f8887d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="63" width="555" height="13" uuid="2d4c4ce3-09f9-4a1f-8906-abb3a15dd5b7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="110" width="555" height="22" uuid="e41929e8-b7bb-4619-a943-fcf28097b9dc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de vendas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="43" width="555" height="20" uuid="ea126a5d-2466-449c-9be3-940da45645ec"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="71" height="20" uuid="5f71f0e9-152f-4627-8952-5e2cebdd122a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="0" width="64" height="20" uuid="d1816dc2-e450-40f7-b962-2ece3097253f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="209" height="20" uuid="dc3de0a4-f767-4c02-86fd-2a8ee34c3919"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="0" width="96" height="20" uuid="bbc8f0df-443b-459f-8239-34d9ce68025b"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="0" width="115" height="20" uuid="b225b5b5-dd6f-4638-a43c-9239aaad786f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="00eafa4e-3040-4285-93ab-6f43d3aaf412"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="71" height="20" uuid="cdff5ef6-86ec-4d8b-b408-0f85996495ca"/>
+				<textFieldExpression><![CDATA[$F{pedido_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="71" y="0" width="64" height="20" uuid="e98ed075-b5a0-4cda-b222-5f28cafc7586"/>
+				<textFieldExpression><![CDATA[$F{pedido_data_criacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="0" width="115" height="20" uuid="da1684fc-89f9-4d03-bef1-8cc2e9f14a23"/>
+				<textFieldExpression><![CDATA[$F{usuario_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="209" height="20" uuid="c77ade69-e9c0-46e7-9cee-72ebdbd8b5ed"/>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="459" y="0" width="96" height="20" uuid="44ac7afb-975a-4cea-9708-22de13cea35d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pedido_valor_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="459" y="14" width="96" height="20" uuid="11b39644-9cfe-423e-898c-f7a2a0cd8e49"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}+" de "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="71" y="14" width="148" height="20" uuid="c0fcb9a3-522c-4110-9f05-94621ee4daeb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="62" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="446" y="22" width="109" height="20" uuid="061852e6-044b-4dbe-898a-4b2ff66a9846"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pedido_valor_total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="24" width="62" height="18" uuid="abe12010-bc21-481b-bdf8-917f5e5d7958"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Período de]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="60" y="24" width="62" height="18" uuid="32531e18-a27c-4173-ba15-d602d11fcb29"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_inicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="118" y="24" width="17" height="18" uuid="06c40f6f-97e3-4e63-bfdd-931a9a4c85f7"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ a]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="135" y="24" width="57" height="18" uuid="c292153f-2f14-4345-9c82-057319f09386"/>
+				<textElement>
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{data_fim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="22" width="108" height="20" uuid="444ff8ce-0199-43ec-8ccf-2c18cac9a7bb"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Valor Total do Período]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="67d1adad-11e3-4936-840e-99d2cef313be"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="42" width="43" height="20" uuid="ce60dd63-3c08-4178-9f7c-c9bc448d4df1"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Status:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="35" y="42" width="100" height="20" uuid="ac5ab5a4-553e-4d2f-a275-6193f1628b06"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

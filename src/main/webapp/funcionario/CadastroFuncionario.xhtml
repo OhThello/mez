@@ -1,0 +1,169 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">#{cadastroFuncionarioBean.editando ? 'Edição de Funcionário' : 'Novo Funcionário'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="funcionario"
+				value="#{cadastroFuncionarioBean.funcionario}" />
+		</f:metadata>
+
+		<h:form>
+			<br />
+			<h1>#{cadastroFuncionarioBean.editando ? 'Edição de Funcionário'
+				: 'Novo Funcionário'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 25px; background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:button value="Limpar" outcome="/funcionario/CadastroFuncionario"
+						style="background: #A5A8AB ; color: white" />
+					<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-fw fa-floppy-o"
+						action="#{cadastroFuncionarioBean.salvar}" update="@form"
+						style="background: #00A934; color: white" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button icon="ui-icon-search" value="Pesquisa"
+						outcome="/funcionario/PesquisaFuncionario"
+						style="background: #407EE6; color: white" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" id="painel"
+					style="width: 100%; margin-top: 20px" layout="grid"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="codigo" value="Codigo" />
+					<p:inputText id="codigo" size="20" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.codigo}" />
+
+					<p:outputLabel for="dtcadastro" value="Data de Cadastro:" />
+					<h:outputText id="dtcadastro"
+						value="#{cadastroFuncionarioBean.funcionario.dataCadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome" size="80" maxlength="80"
+						value="#{cadastroFuncionarioBean.funcionario.nome}" />
+
+					<p:outputLabel for="cpf" value="CPF" />
+					<p:inputMask mask="999.999.999-99" id="cpf"
+						value="#{cadastroFuncionarioBean.funcionario.cpf}" />
+
+					<p:outputLabel for="rg" value="RG:" />
+					<p:inputMask mask="9.999.999 9" id="rg"
+						value="#{cadastroFuncionarioBean.funcionario.rg}" />
+
+					<p:outputLabel for="dtNascimento" value="Data de nascimento" />
+					<p:calendar id="dtNascimento"
+						value="#{cadastroFuncionarioBean.funcionario.dataNascimento}"
+						pattern="dd/MM/yyyy" />
+
+					<p:outputLabel for="sexo" value="Sexo:" />
+
+					<p:selectOneRadio id="sexo"
+						value="#{cadastroFuncionarioBean.funcionario.sexo}">
+
+						<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+
+					</p:selectOneRadio>
+
+					<p:outputLabel for="email" value="E-mail" />
+					<p:inputText id="email"
+						value="#{cadastroFuncionarioBean.funcionario.email}" />
+
+					<p:outputLabel for="fone" value="Telefone:" />
+					<p:inputMask mask="(99) 9999-9999?9" id="fone"
+						value="#{cadastroFuncionarioBean.funcionario.telefone}" />
+
+
+					<p:outputLabel for="celular" value="Celular" />
+					<p:inputMask mask="(99) 9999-9999?9" id="celular"
+						value="#{cadastroFuncionarioBean.funcionario.celular}" />
+
+				</p:panelGrid>
+				<p:spacer height="10"></p:spacer>
+				<p:separator style="border-color: #feffff">
+					<h3 style="text-align: center; "> Dados de Endereço</h3>
+				</p:separator>
+				<p:panelGrid columns="4" id="painelEndereco"
+					style="width: 100%; margin-top: 20px" layout="grid"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Logradouro" for="logradouro" />
+					<p:inputText id="logradouro" size="80" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.logradouro}" />
+
+					<p:outputLabel value="Número:" for="numero" />
+					<p:inputText id="numero" size="20" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.numero}" />
+
+					<p:outputLabel value="Complemento" for="complemento" />
+					<p:inputText id="complemento" size="80" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.complemento}" />
+
+					<p:outputLabel value="Bairro" for="bairro" />
+					<p:inputText id="bairro" size="40" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.bairro}" />
+
+					<p:outputLabel value="CEP" for="cep" />
+					<p:inputMask mask="99999 - 999" id="cep" size="20" maxlength="20"
+						value="#{cadastroFuncionarioBean.funcionario.cep}" />
+
+					<p:outputLabel value="Cidade" for="cidade" />
+					<p:selectOneMenu id="cidade"
+						value="#{cadastroFuncionarioBean.funcionario.cidade}">
+						<f:selectItem itemLabel="Selecione a Cidade" />
+						<f:selectItems value="#{cadastroFuncionarioBean.cidades}"
+							var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+
+				<p:spacer height="10"></p:spacer>
+				<p:separator style="border-color: #feffff">
+					<h3 style="text-align: center;">Dados para Admissão</h3>
+				</p:separator>
+				<p:panelGrid columns="4" id="painelEmpresa"
+					style="width: 100%; margin-top: 20px" layout="grid"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Cargo" for="cargo" />
+					<p:selectOneMenu id="cargo"
+						value="#{cadastroFuncionarioBean.funcionario.cargo}">
+						<f:selectItem itemLabel="Selecione o Cargo" />
+						<f:selectItems value="#{cadastroFuncionarioBean.cargos}"
+							var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="dtadmissao" value="Data de Admissão:" />
+					<p:calendar id="dtadmissao"
+						value="#{cadastroFuncionarioBean.funcionario.dataAdmissao}"
+						pattern="dd/MM/yyyy" />
+
+
+
+					<p:outputLabel for="dtDemissao" value="Data de Demissao:" />
+					<p:calendar id="dtDemissao"
+						value="#{cadastroFuncionarioBean.funcionario.dataDemissao}"
+						pattern="dd/MM/yyyy" />
+
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

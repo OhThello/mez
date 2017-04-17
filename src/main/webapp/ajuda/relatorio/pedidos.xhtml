@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Relatório de pedidos por status</ui:define>
+
+	<ui:define name="corpo">
+		<div style="height: 500px">
+			<h:form id="frmPesquisa">
+				<br />
+				<h1>Relatório de forma de pedidos por status</h1>
+
+
+				<p:toolbar
+					style="margin-top: 20px;background: #feffff; border-color: #feffff">
+					<p:toolbarGroup align="right">
+						<p:button value="Voltar para Ajuda" outcome="/ajuda/PesquisaAjuda"
+							style="background: #00A934; color: #feffff"
+							icon="fa fa-fw fa-fast-backward" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:panel header="Vamos entender o relatório de pedidos por status?"
+					style="margin-top:20px">
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<h:outputText style="font-size: 13px;"
+							value=" O relatório de pedidos por status o é utilizado para busca de status do pedido por um determinado período informado. Para acessar o relatório
+				de pedidos por status : acesse o menu Relatórios > Relatórios Gerencial > Pedidos Status; preencha os campos com as informações solicitadas e confirme.
+				Na imagem abaixo é exibido o relatório de pedidos por status." />
+					</p:panelGrid>
+				</p:panel>
+				<p:spacer height="12"></p:spacer>
+
+				<h:graphicImage library="mez"
+					name="images/tela/relatorio/pedidosStatus.png"
+					style="max-width:100%;" />
+
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

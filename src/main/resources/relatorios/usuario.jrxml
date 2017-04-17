@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="usuario" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="40aa1d63-b853-48e8-94bf-8bb0e8e2c5bd">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="20"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[SELECT
+     usuario.`email` AS usuario_email,
+     pessoa.`nome` AS pessoa_nome,
+     usuario.`id` AS usuario_id,
+     cargo.`nome` AS cargo_nome
+FROM
+     `funcionario` funcionario INNER JOIN `usuario` usuario ON funcionario.`cliente_id` = usuario.`funcionario_cliente_id`
+     INNER JOIN `pessoafisica` pessoafisica ON funcionario.`cliente_id` = pessoafisica.`cliente_id`
+     INNER JOIN `cargo` cargo ON funcionario.`cargo_codigo` = cargo.`codigo`
+     INNER JOIN `pessoa` pessoa ON pessoafisica.`cliente_id` = pessoa.`cliente_id`]]>
+	</queryString>
+	<field name="usuario_email" class="java.lang.String"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="usuario_id" class="java.lang.Long"/>
+	<field name="cargo_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="66" width="555" height="20" uuid="22fe7557-2c75-4a48-b04d-c89c58815824"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="0a8c4df8-119b-4395-9540-2185bb5f1af8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="33" width="555" height="20" uuid="cbe1551c-ae0b-47dc-b5f2-802186b6ac78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="555" height="22" uuid="bb9d2251-11d4-40f8-bae9-22de639e5b66"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de usuários]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="53" width="555" height="13" uuid="199c73eb-bd80-44e6-9425-f025fd554a94"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="225a87ae-df8d-42ee-bfed-90722c1cae8b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="60" height="15" forecolor="#000000" uuid="7a205d4c-a64e-4ee1-a1f1-8ddd48669c65"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="60" y="19" width="200" height="15" forecolor="#000000" uuid="a3a9af00-884b-4e63-bc70-8610eff9bab2"/>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="260" y="19" width="199" height="15" forecolor="#000000" uuid="c035a1c0-f94d-4b17-8be6-5154a34d2d6c"/>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="459" y="19" width="93" height="15" forecolor="#000000" uuid="a4d75252-bbfb-4479-b3e6-aa90bcfcf119"/>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="4ea8a58f-ceb8-4d0b-8378-b5f455aec866"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="60" height="15" uuid="c7da84ec-3204-487e-8050-90644920c42b"/>
+				<textFieldExpression><![CDATA[$F{usuario_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="60" y="0" width="200" height="15" uuid="2f1b857b-c9ed-4e80-8742-7ec8f45dfabe"/>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="260" y="0" width="199" height="15" uuid="3996dd4c-ae03-4908-af0f-4f361aa48529"/>
+				<textFieldExpression><![CDATA[$F{usuario_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="0" width="93" height="16" uuid="3b861347-8c66-4451-a7c8-9e4b3cb61c43"/>
+				<textFieldExpression><![CDATA[$F{cargo_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="fdb2510b-b5e4-4137-a580-864d048f538c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="1a24bd96-1778-497a-b25b-509d9527a5e2"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="fec9b536-0d57-4ce7-9623-126784c76e23"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="44fe45f5-f932-48af-8fa1-3dc230b32e2e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

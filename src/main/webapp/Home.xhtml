@@ -1,0 +1,287 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:viewParam name="dummy" />
+		<f:event listener="#{graficoPedidosCriadosBean.preRender}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="titulo">Dashboard</ui:define>
+
+	<ui:define name="corpo">
+		<p:spacer height="30" />
+		<p:chart type="line" model="#{graficoPedidosCriadosBean.model}"
+			style="height: 400px" />
+
+		<h:form style="display: inline;">
+
+			<p:growl id="msgs" showDetail="true" />
+			<p:dashboard id="board" model="#{dashboardView.model}" style="margin: 3em;" >
+				<p:ajax event="reorder" listener="#{dashboardView.handleReorder}"
+					update="msgs" />
+
+				<p:panel id="pagar" header="Contas Pagar">
+					<p:dataTable id="pagarTable" value="#{pesquisaContasPagarBean.listaContasPagar}" var="pagar"
+						style="margin-top: 10px; max-width: 750px" emptyMessage="Nenhuma conta à pagar encontrada." rows="20"
+						paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" selectionMode="single"
+						selection="#{pesquisaContasPagarBean.contasPagarSelecionado}" rowKey="#{pagar.id}" reflow="true" >
+
+						<p:column headerText="Códido de Recibo">
+							<h:outputText value="#{pagar.id}" />
+						</p:column>
+						
+						<p:column headerText="Fornecedor">
+							<h:outputText value="#{pagar.pessoaJuridica.nome}" />
+						</p:column>
+						
+						<p:column headerText="Data Vencimento">
+							<h:outputText value="#{pagar.dataVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Valor Total">
+							<h:outputText value="#{pagar.valor}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+						</p:column>
+
+						<p:column style="width: 75px">
+							<p:commandButton icon="ui-icon-extlink" update="pagarTable"
+								oncomplete="PF('informacao').show()" value="Pagar"
+								style="background: orange; color: white">
+								<f:setPropertyActionListener value="#{pagar}"
+									target="#{cadastroContasPagarBean.contasPagar}" />
+
+								<p:dialog header="Pagar Conta" widgetVar="informacao"
+									modal="true"
+									style="width:350px;height:400px;border:2px solid black;">
+									<p:panelGrid columns="2" id="painel"
+										styleClass="panelgrid-noborder" layout="grid"
+										columnClasses="ui-grid-col-4, ui-grid-col-8">
+
+										<p:outputLabel for="codigo" value="Codigo" />
+										<p:inputText id="codigo" size="20" maxlength="20"
+											value="#{cadastroContasPagarBean.contasPagar.id}" />
+
+										<p:outputLabel value="Descrição" for="descricao" />
+										<p:inputText id="descricao"
+											value="#{cadastroContasPagarBean.contasPagar.descricao}" />
+
+
+										<p:outputLabel value="Fornecedor" for="cliente" />
+										<p:selectOneMenu id="cliente"
+											value="#{cadastroContasPagarBean.contasPagar.pessoaJuridica}">
+											<f:selectItem itemLabel="Selecione o Fornecedor " />
+											<f:selectItems value="#{cadastroContasPagarBean.pessoas}"
+												var="pessoa" itemLabel="#{pessoa.nome}"
+												itemValue="#{pessoa}" />
+										</p:selectOneMenu>
+
+										<p:outputLabel for="vencimento" value="Vencimento:" />
+										<p:calendar id="vencimento"
+											value="#{cadastroContasPagarBean.contasPagar.dataVencimento}"
+											pattern="dd/MM/yyyy" />
+
+										<p:outputLabel for="total" value="Total" />
+										<p:inputText id="total" styleClass="moeda"
+											value="#{cadastroContasPagarBean.contasPagar.valor}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+										</p:inputText>
+
+										<p:outputLabel for="pagamento" value="Data Pagamento:" />
+										<p:calendar id="pagamento"
+											value="#{cadastroContasPagarBean.contasPagar.dataPagamento}"
+											pattern="dd/MM/yyyy" />
+
+										<p:outputLabel for="valor" value="Valor Recebido" />
+										<p:inputText id="valor" styleClass="moeda"
+											value="#{cadastroContasPagarBean.contasPagar.valorPagamento}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+										</p:inputText>
+
+										<p:outputLabel value="Conta" for="conta" />
+										<p:selectOneMenu id="conta"
+											value="#{cadastroContasPagarBean.contasPagar.contaCorrente}">
+											<f:selectItem itemLabel="Selecione a Conta" />
+											<f:selectItems
+												value="#{cadastroContasPagarBean.contaCorrentes}"
+												var="conta" itemLabel="#{conta.nome}" itemValue="#{conta}" />
+										</p:selectOneMenu>
+										
+									</p:panelGrid>
+
+									<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+										<p:toolbarGroup>
+											<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-fw fa-floppy-o"
+												styleClass="ui-confirmdialog-yes"
+												action="#{cadastroContasPagarBean.salvar}" update="@form"
+												ajax="false"  style="background: #00A934; color: #feffff"  />
+										</p:toolbarGroup>
+										<p:toolbarGroup align="right">
+											<p:button value="Sair" icon="fa fa-fw fa-times-circle"
+												outcome="/Home"
+												styleClass="ui-confirmdialog-no"
+												style="background: #ff1828; color: #feffff" />
+										</p:toolbarGroup>
+									</p:toolbar>
+								</p:dialog>
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+
+				</p:panel>
+				
+				
+				
+				
+				
+		
+				<p:panel id="receber" header="Contas Receber">
+					<p:dataTable id="receberTable"
+						value="#{pesquisaContasReceberesBean.listaContasReceber}"
+						var="receber" style="margin-top: 10px; max-width: 750px"
+						emptyMessage="Nenhuma conta a receber encontrada." rows="20"
+						paginator="true" paginatorAlwaysVisible="false"
+						paginatorPosition="bottom" selectionMode="single"
+						selection="#{pesquisaContasReceberesBean.contasReceberSelecionado}"
+						rowKey="#{receber.id}" reflow="true">
+
+						<p:column headerText="Códido de Recibo">
+							<h:outputText value="#{receber.id}" />
+						</p:column>
+						<p:column headerText="Cliente">
+							<h:outputText value="#{receber.pedido.cliente.nome}" />
+						</p:column>
+						<p:column headerText="Data Vencimento">
+							<h:outputText value="#{receber.dataVencimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Valor Total">
+							<h:outputText value="#{receber.valor}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+						</p:column>
+
+						<p:column style="width: 75px">
+
+
+							<p:commandButton icon="ui-icon-circle-plus" update="receberTable"
+								oncomplete="PF('informacao').show()" value="Receber"
+								style="background: orange; color: white; ">
+								<f:setPropertyActionListener value="#{receber}"
+									target="#{cadastroContasReceberBean.contasReceber}" />
+
+								<p:dialog header="Receber Conta" widgetVar="informacao"
+									modal="true" width="420px" height="350px">
+									<p:panelGrid columns="2" id="painel"
+										styleClass="panelgrid-noborder" layout="grid"
+										columnClasses="ui-grid-col-4, ui-grid-col-8">
+
+
+										<p:outputLabel for="codigo" value="Codigo" />
+										<p:inputText id="codigo" size="20" maxlength="20"
+											value="#{cadastroContasReceberBean.contasReceber.id}" />
+
+
+										<p:outputLabel value="Código venda" for="pedido" />
+										<p:selectOneMenu id="pedido"
+											value="#{cadastroContasReceberBean.contasReceber.pedido}">
+											<f:selectItem itemLabel="Selecione o Pedido" />
+											<f:selectItems value="#{cadastroContasReceberBean.pedidos}"
+												var="venda" itemLabel="#{venda.id}" itemValue="#{venda}" />
+										</p:selectOneMenu>
+
+										<p:outputLabel value="Cliente" for="cliente" />
+										<p:selectOneMenu id="cliente"
+											value="#{cadastroContasReceberBean.contasReceber.pessoa}">
+											<f:selectItem itemLabel="Selecione o Cliente" />
+											<f:selectItems value="#{cadastroContasReceberBean.pessoas}"
+												var="pessoa" itemLabel="#{pessoa.nome}"
+												itemValue="#{pessoa}" />
+										</p:selectOneMenu>
+
+
+										<p:outputLabel for="vencimento" value="Vencimento:" />
+										<p:calendar id="vencimento"
+											value="#{cadastroContasReceberBean.contasReceber.dataVencimento}"
+											pattern="dd/MM/yyyy" />
+
+										<p:outputLabel for="total" value="Valor:" />
+										<p:inputText id="total"
+											value="#{cadastroContasReceberBean.contasReceber.valor}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+										</p:inputText>
+
+										<p:outputLabel for="lacamento" value="Data Lançamento:" />
+										<p:calendar id="lacamento"
+											value="#{cadastroContasReceberBean.contasReceber.dataLancamento}"
+											pattern="dd/MM/yyyy" />
+
+
+										<p:outputLabel for="pagamento" value="Data Pagamento:" />
+										<p:calendar id="pagamento"
+											value="#{cadastroContasReceberBean.contasReceber.dataPagamento}"
+											pattern="dd/MM/yyyy" />
+
+
+
+										<p:outputLabel for="valor" value="Valor:" />
+										<p:inputText id="valor"
+											value="#{cadastroContasReceberBean.contasReceber.valorPagamento}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+										</p:inputText>
+										
+										<p:outputLabel value="Conta" for="conta" />
+										<p:selectOneMenu id="conta"
+											value="#{cadastroContasReceberBean.contasReceber.contaCorrente}">
+											<f:selectItem itemLabel="Selecione a Conta" />
+											<f:selectItems value="#{cadastroContasReceberBean.contaCorrentes}"
+												var="conta" itemLabel="#{conta.nome}"
+												itemValue="#{conta}" />
+										</p:selectOneMenu>
+
+
+
+									</p:panelGrid>
+
+									<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+										<p:toolbarGroup>
+											<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-fw fa-floppy-o"
+												styleClass="ui-confirmdialog-yes"
+												action="#{cadastroContasReceberBean.salvar}" update="@form"
+												ajax="false" style="background: #00A934; color: #feffff" />
+										</p:toolbarGroup>
+										<p:toolbarGroup align="right">
+											<p:button value="Sair" icon="fa fa-fw fa-times-circle"
+												outcome="/contasReceber/PesquisaContasReceber"
+												styleClass="ui-confirmdialog-no"
+												style="background: #ff1828; color: #feffff" />
+										</p:toolbarGroup>
+									</p:toolbar>
+								</p:dialog>
+							</p:commandButton>
+
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+
+				
+
+			</p:dashboard>
+ <div style="clear:both" />
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

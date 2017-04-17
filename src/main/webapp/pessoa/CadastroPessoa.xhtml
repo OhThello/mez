@@ -1,0 +1,165 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">#{cadastroPessoaBean.editando ? 'Edição de Cliente' : 'Novo Cliente'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="pessoa" value="#{cadastroPessoaBean.pessoa}" />
+		</f:metadata>
+
+		<h:form>
+		<br/> 
+			<h1>#{cadastroPessoaBean.editando ? 'Edição de Cliente' : 'Novo
+				Cliente'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/pessoa/CadastroPessoa" />
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroPessoaBean.salvar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/pessoa/PesquisaPessoa" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" id="pessoaTable"
+					styleClass="panelgrid-noborder" layout="grid"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="codigo" value="Codigo" />
+					<p:inputText id="codigo" size="20" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.codigo}" />
+
+
+					<p:outputLabel for="dtcadastro" value="Data de Cadastro:" />
+					<h:outputText id="dtcadastro"
+						value="#{cadastroPessoaBean.pessoa.dataCadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+					<p:outputLabel for="tipo" value="Tipo:" />
+					<p:selectOneRadio id="tipo" rendered="true"
+						value="#{cadastroPessoaBean.tipoPessoa}">
+						<f:selectItem itemLabel="Pessoa Fisica" itemValue="PF" />
+						<f:selectItem itemLabel="Pessoa Juridica" itemValue="PJ" />
+						<f:ajax event="change" listener="#{cadastroPessoaBean.criaPessoa}"
+							render="pessoaTable" />
+					</p:selectOneRadio>
+
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" value="#{cadastroPessoaBean.pessoa.nome}" />
+
+
+					<p:outputLabel for="cpf" value="CPF:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+					<p:inputMask mask="999.999.999-99" id="cpf"
+						value="#{cadastroPessoaBean.pessoa.cpf}"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+
+					<p:outputLabel for="cnpj" value="CNPJ:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+					<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+						value="#{cadastroPessoaBean.pessoa.cnpj}"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+
+
+					<p:outputLabel for="rg" value="RG:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+					<p:inputMask mask="9.999.999 9" id="rg"
+						value="#{cadastroPessoaBean.pessoa.rg}" 
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+
+					<p:outputLabel for="ie" value="IE:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+					<p:inputMask mask="999.99999-99" id="ie"
+						value="#{cadastroPessoaBean.pessoa.inscricaoEstadual}"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+
+					<p:outputLabel for="razao" value="Razão social:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+					<p:inputText id="razao"
+						value="#{cadastroPessoaBean.pessoa.razaoSocial}" 
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+
+					<p:outputLabel for="dtAbertura" value="Data de abertura:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+					<p:calendar id="dtAbertura"
+						value="#{cadastroPessoaBean.pessoa.dataAbertura}" 
+						pattern="dd/MM/yyyy"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PJ'}" />
+
+					<p:outputLabel for="dtNascimento" value="Data de nascimento:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+					<p:calendar id="dtNascimento"
+						value="#{cadastroPessoaBean.pessoa.dataNascimento}"
+						pattern="dd/MM/yyyy"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+
+					<p:outputLabel for="sexo" value="Sexo:"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}" />
+
+					<p:selectOneRadio id="sexo"
+						value="#{cadastroPessoaBean.pessoa.sexo}"
+						rendered="#{cadastroPessoaBean.tipoPessoa=='PF'}">
+
+						<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+						<f:selectItem itemLabel="Feminino" itemValue="Feminino" />
+
+					</p:selectOneRadio>
+
+					<p:outputLabel for="email" value="E-mail:" />
+					<p:inputText id="email" value="#{cadastroPessoaBean.pessoa.email}" />
+
+					<p:outputLabel for="fone" value="Telefone:" />
+					<p:inputMask mask="(99) 9999-9999?9" id="fone"
+						value="#{cadastroPessoaBean.pessoa.telefone}" />
+
+
+					<p:outputLabel for="celular" value="Celular:" />
+					<p:inputMask mask="(99) 9999-9999?9" id="celular"
+						value="#{cadastroPessoaBean.pessoa.celular}" />
+
+					<p:outputLabel value="Logradouro:" for="logradouro" />
+					<p:inputText id="logradouro" size="80" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.logradouro}" />
+
+					<p:outputLabel value="Número:" for="numero" />
+					<p:inputText id="numero" size="20" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.numero}" />
+
+					<p:outputLabel value="Complemento:" for="complemento" />
+					<p:inputText id="complemento" size="80" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.complemento}" />
+
+					<p:outputLabel value="Bairro:" for="bairro" />
+					<p:inputText id="bairro" size="40" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.bairro}" />
+
+					<p:outputLabel value="CEP:" for="cep" />
+					<p:inputMask mask="99999 - 999" id="cep" size="20" maxlength="20"
+						value="#{cadastroPessoaBean.pessoa.cep}" />
+
+					<p:outputLabel value="Cidade" for="cidade" />
+					<p:selectOneMenu id="cidade"
+						value="#{cadastroPessoaBean.pessoa.cidade}">
+						<f:selectItem itemLabel="Selecione a Cidade" />
+						<f:selectItems value="#{cadastroPessoaBean.cidades}" var="cidade"
+							itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					</p:selectOneMenu>
+
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

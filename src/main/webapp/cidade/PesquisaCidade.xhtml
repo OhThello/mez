@@ -1,0 +1,115 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa de Cidades</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+		<br/> 
+			<h1>Pesquisa de Cidades</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:commandButton icon="ui-icon-search" value="Pesquisar" style="background: #407EE6; color: white"
+						action="#{pesquisaCidadesBean.pesquisar}" update="@form" />
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cidade/CadastroCidade" style="background: #00A934; color: white"
+					icon="ui-icon-document" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px" layout="grid"
+	    			columnClasses="ui-grid-col-1, ui-grid-col-11" styleClass="panelgrid-noborder">
+	    		<p:outputLabel value="Cidade"/>
+	    		<p:inputText value="#{pesquisaCidadesBean.filtro.nomeCidade}" />
+	    		
+	    		<p:outputLabel value="Estado" />
+	    		<p:inputText value="#{pesquisaCidadesBean.filtro.nomeEstado}" />
+	    	</p:panelGrid>
+
+
+			<p:dataTable id="cidadeTable" value="#{pesquisaCidadesBean.cidades}"
+				var="cidade" style="margin-top: 20px"
+				emptyMessage="Nenhuma cidade encontrada." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				selectionMode="single"
+				selection="#{pesquisaCidadesBean.cidadeSelecionado}"
+				rowKey="#{cidade.codigo}" reflow="true">
+
+				<p:column headerText="Código">
+					<h:outputText value="#{cidade.codigo}" />
+				</p:column>
+				<p:column headerText="Cidade">
+					<h:outputText value="#{cidade.nome}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText value="#{cidade.estado.nome}" />
+				</p:column>
+
+				<p:column>
+
+					<p:button outcome="CadastroCidade" icon="ui-icon-pencil"
+						value="Editar" title="Editar" style="background: #00A934; color: white">
+						<f:param name="cidade" value="#{cidade.codigo}" />
+					</p:button>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						value="Excluir" action="#{pesquisaCidadesBean.excluir}"
+						update=":frmPesquisa:cidadeTable" style="background: #ff1828; color: white ">
+						<p:confirm header="Confirmação"
+							message="Tem certeza que deseja remover a cidade de #{cidade.nome}?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-search" update="cidadeTable"
+								oncomplete="PF('info').show()" value="Dados"
+								style="background:   #e88c30; color: white">
+								<f:setPropertyActionListener value="#{cidade}"
+									target="#{cadastroCidadeBean.cidade}" />
+								<p:dialog header="Dados da Cidade"  resizable="false" modal="true"
+									widgetVar="info" width="350px" height="350px" 
+									selectionMode="single">
+
+									<p:outputPanel id="tabela" layout="grid" 
+										styleClass="panelgrid-noborder">
+										<p:panelGrid columns="2"  
+											rendered="#{not empty cadastroCidadeBean.cidade}"
+											columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+											styleClass="panelgrid-noborder"  style="background:  #e88c30;">
+											<p:outputLabel value="Código:" style="font-weight: bold" />
+											<h:outputText
+												value="#{cadastroCidadeBean.cidade.codigo}" />
+											<p:outputLabel value="Cidade:"  style="font-weight: bold"/>
+												<h:outputText value="#{cadastroCidadeBean.cidade.nome}" />
+											<p:outputLabel value="Estado:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroCidadeBean.cidade.estado.nome}" />
+											<p:outputLabel value="Sigla:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroCidadeBean.cidade.estado.sigla}" />
+											<p:outputLabel value="País:" style="font-weight: bold" />
+											<h:outputText value="#{cadastroCidadeBean.cidade.estado.pais}" />
+										</p:panelGrid>
+									<p:spacer height="70"></p:spacer>
+							</p:outputPanel>
+
+								<p:toolbarGroup align="center">
+									<p:button value="Sair"
+										style="background: #ff1828 ; color: #feffff" outcome="/cidade/PesquisaCidade"/>
+								</p:toolbarGroup>
+								</p:dialog>
+							</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+		
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

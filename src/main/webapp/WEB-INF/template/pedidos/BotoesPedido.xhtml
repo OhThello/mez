@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+	<p:toolbar style="margin-top: 25px; background: #feffff; border-color: #feffff">
+  		<p:toolbarGroup>
+  			<p:button value="Limpar" outcome="/pedidos/CadastroPedido" style="background: #A5A8AB; color: white"/>
+  			<p:commandButton value="Salvar" action="#{cadastroPedidoBean.salvar}" icon="fa fa-fw fa-floppy-o"
+  				update="@form" disabled="#{cadastroPedidoBean.pedido.naoAlteravel}"  style="background: #00A934; color: white"/>
+  		</p:toolbarGroup>
+  		
+  		<p:toolbarGroup align="right">
+  			<p:commandButton value="Emitir" action="#{emissaoPedidoBean.emitirPedido}" style="background: #00A934; color: white"
+  				process="@form" update="@form" disabled="#{cadastroPedidoBean.pedido.naoEmissivel}" icon="fa fa-fw fa-dollar" />
+  			<p:commandButton value="Cancelar" action="#{cancelamentoPedidoBean.cancelarPedido}" style="background: #ff1828; color: white "
+  				process="@this" update="@form" disabled="#{cadastroPedidoBean.pedido.naoCancelavel}"  icon="fa fa-fw fa-remove"/>
+  			<p:commandButton value="Enviar por e-mail" action="#{envioPedidoEmailBean.enviarPedido()}" icon="ui-icon-mail-closed"
+  				process="@this" disabled="#{cadastroPedidoBean.pedido.naoEnviavelPorEmail}" style="background: #a866ee; color: white "/>
+  			
+  			<p:separator/>
+  		
+  			<p:button value="Pesquisa" outcome="/pedidos/PesquisaPedidos" style="background: #407EE6; color: white" icon="ui-icon-search"/>
+  		</p:toolbarGroup>
+  	</p:toolbar>
+  	
+</ui:composition>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="grupoProduto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d17fa83d-bf40-46a7-8115-6d36718d9ccf">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     grupo_produto.`codigo` AS grupo_produto_codigo,
+     grupo_produto.`ativo` AS grupo_produto_ativo,
+     grupo_produto.`nome` AS grupo_produto_nome
+FROM
+     `grupo_produto` grupo_produto]]>
+	</queryString>
+	<field name="grupo_produto_codigo" class="java.lang.Long"/>
+	<field name="grupo_produto_nome" class="java.lang.String"/>
+	<field name="grupo_produto_ativo" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="163" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="76" width="555" height="20" uuid="2a0c0dba-876f-47bc-9bf8-157f05051002"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="43" width="555" height="20" uuid="2ca478c0-a864-489c-83ad-c80ec2aa05d8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="110" width="555" height="22" uuid="9fe9bd87-bd9b-4b3a-a6f0-8886e4c8b914"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de grupo produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="555" height="33" uuid="a735ffd0-dbe5-404e-8186-5ef04615ee06"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="63" width="555" height="13" uuid="88d33fdc-6581-41a8-96d1-1a7b37bd4e61"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="20" uuid="55e85e2f-985f-447a-b55d-d486e9c09761"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="20" uuid="fbc31bf2-4418-4772-aec7-2f968dd0c666"/>
+				<text><![CDATA[Grupo Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="20" uuid="3ce86a0e-b873-41bd-940f-d1d28cbb6485"/>
+				<text><![CDATA[Disponível]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="18" width="555" height="2" uuid="c985ac8c-f39e-4250-a372-5fc568e7b636"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="20" uuid="661fb782-4ad7-4cdf-bea2-7c085872bf5c"/>
+				<textFieldExpression><![CDATA[$F{grupo_produto_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="20" uuid="f5fb7bca-4673-45e6-af18-20e44a65cdd8"/>
+				<textFieldExpression><![CDATA[$F{grupo_produto_ativo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="20" uuid="085c3d79-8610-48ab-a405-960d5a2cf435"/>
+				<textFieldExpression><![CDATA[$F{grupo_produto_nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="32" y="25" width="136" height="20" uuid="01e2b939-2d4a-4ae7-9af9-e49eb0618443"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="34" width="114" height="20" uuid="60281efc-f3bd-4e70-8462-2a90bf72ff45"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}+" de "+ $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="b947c27d-14d6-4e70-8bdd-c2a02524ffcb"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

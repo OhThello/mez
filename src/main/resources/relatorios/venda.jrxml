@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="venda" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16c4756e-d749-44e9-b5f2-b188f0ca6442">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="4"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Marcelo\\workspace\\mez\\src\\main\\resources\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_fim" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     pedido.`id` AS pedido_id,
+     pedido.`data_criacao` AS pedido_data_criacao,
+     pedido.`valor_total` AS pedido_valor_total,
+     pessoa.`nome` AS pessoa_nome,
+     pedido.`valor_desconto` AS pedido_valor_desconto,
+     pedido.`valor_frete` AS pedido_valor_frete
+FROM
+     `pessoa` pessoa INNER JOIN `pedido` pedido ON pessoa.`cliente_id` = pedido.`cliente_id`
+WHERE
+     cast(pedido.`data_criacao`as Date) BETWEEN $P{data_inicio} and $P{data_fim}
+ AND  pedido.`status` = 'EMITIDO'
+ORDER BY
+     pedido.`data_criacao` ASC]]>
+	</queryString>
+	<field name="pedido_id" class="java.lang.Long"/>
+	<field name="pedido_data_criacao" class="java.sql.Timestamp"/>
+	<field name="pedido_valor_total" class="java.math.BigDecimal"/>
+	<field name="pessoa_nome" class="java.lang.String"/>
+	<field name="pedido_valor_desconto" class="java.math.BigDecimal"/>
+	<field name="pedido_valor_frete" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="66" width="555" height="20" uuid="5e29b9a2-3fbd-4206-88ec-d976315d529f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone: (44) 3423 - 2081]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="9e0ee906-9933-40b7-a02d-502b5fbd0835"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Massas Máximo e Zortea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="33" width="555" height="20" uuid="6ab6f25c-3834-41e2-beaf-a5181b61fde0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rua Castro, N° 1934, Jardim Ibirapuera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="555" height="22" uuid="0fe20b5b-a967-40bc-86bc-e9f97a269d2a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de vendas ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="53" width="555" height="13" uuid="149a95af-9e39-4437-87a6-4b4b5c16a4a7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paranavaí - Paraná]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="74" height="20" uuid="cf25b0f5-b1f4-4403-a273-c35bc2fc17ab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="74" y="0" width="65" height="20" uuid="acaf6760-80c7-474d-ad7e-34168c20844e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Venda	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="0" width="188" height="20" uuid="8beb601c-61e2-439d-b75d-c06dfb823e08"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="0" width="66" height="20" uuid="c7936ad5-7801-4e89-9243-c9247c72f0be"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="20" uuid="964ffd9b-aeec-4542-9c78-f9dcf3a7982c"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="ebf969d3-1103-40e5-9fd3-c84b1f149c4a"/>
+			</line>
+			<staticText>
+				<reportElement x="332" y="1" width="46" height="20" uuid="042262b9-948d-4625-a62c-d4895e6935e5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frete]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="74" height="20" uuid="1f32caac-3bf1-4666-a755-aa4f995a91f2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="74" y="1" width="65" height="20" uuid="cf8c8121-2f36-4076-ba25-3fcf95a3a58e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_data_criacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="1" width="188" height="20" uuid="2eb607d1-4539-47a3-bf56-99eaf167bf00"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoa_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="378" y="1" width="66" height="20" uuid="44ece9bf-d3f0-4048-b879-35be7d45d5c9"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_desconto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="444" y="0" width="111" height="20" uuid="c59429e1-0316-4427-bb3c-f81997aa7f1e"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="332" y="1" width="46" height="20" uuid="e5a3b7e7-09fe-4278-9883-7c1310b3a775"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedido_valor_frete}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="9507f0e0-d683-4152-ae88-8443e439a320"/>
+			</line>
+		</band>
+		<band height="34">
+			<subreport>
+				<reportElement x="85" y="0" width="470" height="20" uuid="6c44ba9b-b681-4eba-9a03-22ddf34d6805"/>
+				<subreportParameter name="idVenda">
+					<subreportParameterExpression><![CDATA[$F{pedido_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPedido.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="36" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="a154f5e5-db81-453c-8da5-58c1cb89e069"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

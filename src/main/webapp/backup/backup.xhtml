@@ -1,0 +1,43 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Backup</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frmPesquisa">
+			<br />
+			<h1>Backup</h1>
+
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<p:toolbar style="margin-top: 20px;background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<h:form>
+						<p:ajaxStatus onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+						<p:commandButton action="#{backupControle.backupMysql()}"
+							onclick="PF('statusDialog').show();"
+							value="Fazer um Backup agora" />
+					</h:form>
+				</p:toolbarGroup>
+			</p:toolbar >
+			
+			<h:form id="form">
+           
+ <p:fileUpload value="#backupControle.backupMysql()}" mode="simple" skinSimple="true" />
+  <p:commandButton value="Restaurar Backup" ajax="false" action="#{restaurarBackupControle.upload}" />
+			</h:form>
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<h4>Aguarde...</h4>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

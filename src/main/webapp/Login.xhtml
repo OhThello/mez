@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Login</title>
+
+	<!--         <div style=" width: 100px; height: 100px;"> -->
+	<!--     		<h:graphicImage library="mez" name="images/login.jpg" style=" width: 1500px; height: 900px;" /> -->
+	<!--     		</div> -->
+
+	<h:outputStylesheet library="mez" name="styles/layout.css" />
+</h:head>
+<h:body style="background: #f6f6f6;">
+	<div class="ui-fluid">
+		<f:metadata>
+			<f:viewParam name="dummy" />
+			<f:event listener="#{loginBean.preRender}" type="preRenderView" />
+		</f:metadata>
+		<div id="login-dialog" style="text-align: center;">
+		<h1 style="text-align: center">Seja bem vindo</h1>
+			<h:graphicImage library="mez" name="images/indice.png"
+				style="max-width:100%;" />
+
+			<h:form id="frm" prependId="false">
+
+				<p:messages id="messages" autoUpdate="true" closable="true" />
+
+				<h4 style="text-align: center">Identifique-se por favor para continuar.</h4>
+				<h:panelGrid columns="2" id="painel" styleClass="grid-login"
+					columnClasses="ui-grid-col-3, ui-grid-col-9">
+					<p:outputLabel value="E-mail" />
+					<p:inputText size="30" id="j_username" value="#{loginBean.email}" />
+
+					<p:outputLabel value="Senha" />
+					<p:password size="30" id="j_password" />
+
+					<h:panelGroup />
+					<p:commandButton value="Entrar" action="#{loginBean.login}"
+						ajax="false" style="background: #00A934; color: #feffff" />
+				</h:panelGrid>
+
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

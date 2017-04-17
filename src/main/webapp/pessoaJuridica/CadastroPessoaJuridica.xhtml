@@ -1,0 +1,127 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">#{cadastroPessoaJuridicaBean.editando ? 'Edição de Cliente Jurídico' : 'Novo Cliente Jurídico'}</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="pessoa" value="#{cadastroPessoaJuridicaBean.pessoaJuridica}" />
+		</f:metadata>
+
+		<h:form>
+		<br/> 
+			<h1>#{cadastroPessoaJuridicaBean.editando ? 'Edição de Cliente Jurídico' : 'Novo Cliente Jurídico'}</h1>
+
+			<p:messages autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 25px; background: #feffff; border-color: #feffff">
+				<p:toolbarGroup>
+					<p:button value="Limpar" outcome="/pessoaJuridica/CadastroPessoaJuridica" style="background: #A5A8AB; color: #feffff"/>
+					<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-fw fa-floppy-o"
+						action="#{cadastroPessoaJuridicaBean.salvar}" update="@form" style="background: #00A934; color: #feffff"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button icon="ui-icon-search" value="Pesquisa" outcome="/pessoaJuridica/PesquisaPessoaJuridica"  style="background: #407EE6; color: #feffff"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" id="pessoaTable"
+					styleClass="panelgrid-noborder" layout="grid"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="codigo" value="Codigo" />
+					<p:inputText id="codigo" size="20" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.codigo}" />
+
+
+					<p:outputLabel for="dtcadastro" value="Data de Cadastro:" />
+					<h:outputText id="dtcadastro"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.dataCadastro}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+
+
+					<p:outputLabel value="Nome" for="nome" />
+					<p:inputText id="nome" value="#{cadastroPessoaJuridicaBean.pessoaJuridica.nome}" />
+
+
+
+					<p:outputLabel for="cnpj" value="CNPJ:" />
+					<p:inputMask mask="99.999.999/9999-99" id="cnpj"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.cnpj}"/>
+
+					<p:outputLabel for="ie" value="IE:"/>
+					<p:inputMask mask="999.99999-99" id="ie"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.inscricaoEstadual}"/>
+
+					<p:outputLabel for="razao" value="Razão social:"/>
+					<p:inputText id="razao"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.razaoSocial}" />
+
+					<p:outputLabel for="dtAbertura" value="Data de abertura:"/>
+					<p:calendar id="dtAbertura"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.dataAbertura}" 
+						pattern="dd/MM/yyyy"/>
+
+					<p:outputLabel for="email" value="E-mail:" />
+					<p:inputText id="email" value="#{cadastroPessoaJuridicaBean.pessoaJuridica.email}" />
+
+					<p:outputLabel for="fone" value="Telefone:" />
+					<p:inputMask mask="(99) 9999-9999?9" id="fone"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.telefone}" />
+
+
+					<p:outputLabel for="celular" value="Celular:" />
+					<p:inputMask mask="(99) 9999-9999?9" id="celular"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.celular}" />
+						
+						</p:panelGrid>
+				<p:spacer height="10"></p:spacer>
+				<p:separator style="border-color: #feffff">
+					<h3 style="text-align: center; "> Dados de Endereço</h3>
+				</p:separator>
+				<p:panelGrid columns="4" id="painelEndereco"
+					style="width: 100%; margin-top: 20px" layout="grid"
+					styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Logradouro:" for="logradouro" />
+					<p:inputText id="logradouro" size="80" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.logradouro}" />
+
+					<p:outputLabel value="Número:" for="numero" />
+					<p:inputText id="numero" size="20" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.numero}" />
+
+					<p:outputLabel value="Complemento:" for="complemento" />
+					<p:inputText id="complemento" size="80" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.complemento}" />
+
+					<p:outputLabel value="Bairro:" for="bairro" />
+					<p:inputText id="bairro" size="40" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.bairro}" />
+
+					<p:outputLabel value="CEP:" for="cep" />
+					<p:inputMask mask="99999 - 999" id="cep" size="20" maxlength="20"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.cep}" />
+
+					<p:outputLabel value="Cidade" for="cidade" />
+					<p:selectOneMenu id="cidade"
+						value="#{cadastroPessoaJuridicaBean.pessoaJuridica.cidade}">
+						<f:selectItem itemLabel="Selecione a Cidade" />
+						<f:selectItems value="#{cadastroPessoaJuridicaBean.cidades}" var="cidade"
+							itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+					</p:selectOneMenu>
+
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

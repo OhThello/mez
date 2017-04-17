@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de estado</ui:define>
+
+	<ui:define name="corpo">
+		<div style="height: 500px">
+			<h:form id="frmPesquisa">
+				<br />
+				<h1>Cadastro de estado</h1>
+
+
+				<p:toolbar
+					style="margin-top: 20px;background: #feffff; border-color: #feffff">
+					<p:toolbarGroup align="right">
+						<p:button value="Voltar para Ajuda" outcome="/ajuda/PesquisaAjuda"
+							style="background: #00A934; color: #feffff"
+							icon="fa fa-fw fa-fast-backward" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:panel header="Vamos entender o cadastro de estado?"
+					style="margin-top:20px">
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<h:outputText style="font-size: 13px;"
+							value=" O cadastro de estado é utilizado no cadastro de cidades, e complementa os demais cadastros. Para realizar o cadastro de uma novo 
+				estado: acesse o menu Cadastros > Estado; clique em Novo; preencha os campos com as informações solicitadas e confirme.
+				Na imagem abaixo é exibido o cadastro de estado." />
+					</p:panelGrid>
+				</p:panel>
+				<p:spacer height="12"></p:spacer>
+
+				<h:graphicImage library="mez"
+					name="images/tela/cadastro/estado.png"
+					style="max-width:100%;" />
+
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
